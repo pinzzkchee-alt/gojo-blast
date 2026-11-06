@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GOJO BLAST Customer</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090914;color:#f5f5ff;font:15px Arial}
+.hidden{display:none!important}
+button{background:#8058e8;color:white;border:0;padding:12px 16px;border-radius:9px;cursor:pointer;margin:4px}
+input,textarea,select{width:100%;padding:12px;background:#101020;color:white;border:1px solid #393952;border-radius:9px;margin:8px 0 14px}
+textarea{min-height:120px}
+#auth{max-width:420px;margin:60px auto;padding:25px;background:#151526;border-radius:16px}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+aside{background:#111123;padding:20px}
+.brand{font-size:23px;font-weight:bold;color:#b99cff;margin-bottom:20px}
+nav button{display:block;width:100%;text-align:left;background:transparent}
+nav button.active{background:#302052}
+main{padding:25px;max-width:1200px;width:100%}
+.panel,.card,.hero{background:#151526;border:1px solid #30304c;border-radius:14px;padding:20px;margin-bottom:16px}
+.hero{background:linear-gradient(120deg,#38216c,#17172e)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card h2{color:#c4b5fd}
+.muted,.status{color:#aaaac2;font-size:13px;line-height:1.6}
+.page{display:none}.page.active{display:block}
+.bar{height:9px;background:#30304c;border-radius:10px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:#a78bfa}
+table{width:100%;border-collapse:collapse}
+td,th{padding:11px;border-bottom:1px solid #30304c;text-align:left;font-size:13px}
+@media(max-width:700px){
+.layout{display:block}
+aside{position:sticky;top:0;z-index:5}
+nav{display:flex;overflow:auto}
+nav button{white-space:nowrap;width:auto}
+main{padding:14px}
+.grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="auth">
+<h1 style="color:#c4b5fd">⚡ GOJO BLAST</h1>
+<p class="muted">Portal pelanggan GOJO BLAST.</p>
+<label>Email</label>
+<input id="email" type="email" placeholder="Email akun">
+<label>Password</label>
+<input id="password" type="password" placeholder="Password minimal 6 karakter">
+<button id="loginBtn">Login</button>
+<button id="registerBtn">Daftar</button>
+<p id="authStatus" class="status">Memuat sistem...</p>
+</div>
+
+<div id="app" class="layout hidden">
+<aside>
+<div class="brand">⚡ GOJO BLAST</div>
+<nav id="nav">
+<button class="active" data-page="dashboard">Dashboard</button>
+<button data-page="blast">WhatsApp Blast</button>
+<button data-page="history">Riwayat</button>
+<button data-page="referral">Referral</button>
+<button data-page="withdraw">Withdraw</button>
+<button data-page="settings">Pengaturan Akun</button>
+<button id="adminLink" class="hidden" data-page="admin">Admin</button>
+</nav>
+<p class="muted">Mode simulasi. Tidak mengirim WhatsApp sungguhan.</p>
+</aside>
+
+<main>
+<header>
+<h1 id="title">Dashboard</h1>
+<span id="userEmail" class="muted"></span>
+</header>
+
+<section id="dashboard" class="page active">
+<div class="hero">
+<h2>Selamat datang di GOJO BLAST ⚡</h2>
+<p>Kelola aktivitas akunmu dari satu dashboard.</p>
+</div>
+<div class="grid">
+<div class="card"><small>Saldo</small><h2 id="balance">Rp0</h2></div>
+<div class="card"><small>Total simulasi</small><h2 id="simCount">0</h2></div>
+<div class="card"><small>Status akun</small><h2>Aktif</h2></div>
+</div>
+<div class="panel">
+<h3>Aktivitas terbaru</h3>
+<p id="recent" class="muted">Belum ada aktivitas.</p>
+</div>
+</section>
+
+<section id="blast" class="page">
+<div class="panel">
+<h2>WhatsApp Blast</h2>
+<p class="muted">SIMULASI SAJA. Tidak ada pesan WhatsApp yang benar-benar dikirim.</p>
+
+<label>Isi pesan</label>
+<textarea id="message" maxlength="2000" placeholder="Tulis pesan simulasi..."></textarea>
+
+<label>Koneksi simulasi</label>
+<select id="connections">
+<option value="1">1 koneksi</option>
+<option value="2">2 koneksi</option>
+<option value="3">3 koneksi</option>
+<option value="4">4 koneksi</option>
+</select>
+
+<label>Delay simulasi (minimal 3 detik)</label>
+<input id="delay" type="number" min="3" value="3">
+
+<label>Jumlah penerima contoh</label>
+<input id="recipientCount" type="number" min="1" max="500" value="10">
+
+<p class="muted">Jumlah penerima hanya angka contoh, bukan akses ke database nomor admin.</p>
+
+<button id="startBtn">Mulai Simulasi</button>
+<button id="stopBtn" disabled>Hentikan</button>
+<div class="bar"><span id="progress"></span></div>
+<p id="blastStatus" class="status">Siap menjalankan simulasi.</p>
+</div>
+</section>
+
+<section id="history" class="page">
+<div class="panel">
+<h2>Riwayat Simulasi</h2>
+<div style="overflow:auto">
+<table>
+<thead><tr><th>Waktu</th><th>Jumlah</th><th>Koneksi</th><th>Delay</th><th>Status</th></tr></thead>
+<tbody id="historyRows"><tr><td colspan="5">Belum ada riwayat.</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="referral" class="page">
+<div class="panel">
+<h2>Kode Referral</h2>
+<input id="refCode" readonly placeholder="Kode belum tersedia">
+<button id="copyRef">Salin Kode</button>
+<p id="refStatus" class="status"></p>
+</div>
+<div class="panel">
+<h3>Gunakan kode teman</h3>
+<input id="refInput" placeholder="Kode referral">
+<button id="claimRef">Gunakan Kode</button>
+</div>
+</section>
+
+<section id="withdraw" class="page">
+<div class="panel">
+<h2>Withdraw</h2>
+<p>Saldo: <strong id="withdrawBalance">Rp0</strong></p>
+<label>Nominal minimal Rp20.000</label>
+<input id="amount" type="number" min="20000" step="1000">
+<label>Metode pembayaran</label>
+<select id="method">
+<option value="">Pilih metode</option>
+<option>DANA</option>
+<option>GoPay</option>
+<option>OVO</option>
+<option>Transfer Bank</option>
+</select>
+<label>Nomor tujuan</label>
+<input id="destination" placeholder="Nomor akun atau rekening">
+<button id="withdrawBtn">Kirim Pengajuan</button>
+<p id="withdrawStatus" class="status"></p>
+</div>
+<div class="panel">
+<h3>Riwayat Withdraw</h3>
+<div style="overflow:auto">
+<table>
+<thead><tr><th>Tanggal</th><th>Nominal</th><th>Metode</th><th>Status</th></tr></thead>
+<tbody id="withdrawRows"><tr><td colspan="4">Memuat...</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+
+<section id="settings" class="page">
+<div class="panel">
+<h2>Pengaturan Akun</h2>
+<label>Email akun</label>
+<input id="settingsEmail" readonly>
+<p class="muted">Jangan membagikan password atau kode verifikasi kepada orang lain.</p>
+<button id="logoutBtn">Logout</button>
+</div>
+</section>
+
+<section id="admin" class="page">
+<div class="panel">
+<h2>Panel Admin</h2>
+<p>Kelola sistem melalui panel admin utama.</p>
+<a href="https://gojo-blast.vercel.app/" style="color:#c4b5fd">Buka panel utama GOJO BLAST</a>
+</div>
+</section>
+</main>
+</div>
+
+<script>
+"use strict";
+
+const SUPABASE_URL="https://mgqmhppcijzkgatttfqb.supabase.co";
+const SUPABASE_KEY="sb_publishable_B61MzyImsKoBVoErFclTxw_WQPlI9xB";
+
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const money=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
+
+let user=null;
+let role="member";
+let running=false;
+let history=[];
+
+function authMsg(s){$("authStatus").textContent=s}
+
+async function login(){
+ const email=$("email").value.trim();
+ const password=$("password").value;
+ if(!email||!password){authMsg("Masukkan email dan password.");return}
+ authMsg("Sedang login...");
+ $("loginBtn").disabled=true;
+ try{
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error)throw error;
+  user=data.user;
+  await enter();
+ }catch(e){authMsg("Login gagal: "+e.message)}
+ finally{$("loginBtn").disabled=false}
+}
+
+async function register(){
+ const email=$("email").value.trim();
+ const password=$("password").value;
+ if(!email||password.length<6){authMsg("Isi email dan password minimal 6 karakter.");return}
+ authMsg("Mendaftarkan akun...");
+ $("registerBtn").disabled=true;
+ try{
+  const {data,error}=await db.auth.signUp({email,password});
+  if(error)throw error;
+  if(data.session){user=data.user;await enter()}
+  else authMsg("Pendaftaran berhasil. Verifikasi email lalu login.");
+ }catch(e){authMsg("Gagal daftar: "+e.message)}
+ finally{$("registerBtn").disabled=false}
+}
+
+async function enter(){
+ $("auth").classList.add("hidden");
+ $("app").classList.remove("hidden");
+ $("userEmail").textContent=user.email||"Member";
+ $("settingsEmail").value=user.email||"";
+ await loadProfile();
+ await loadBalance();
+ await loadReferral();
+ await loadWithdrawals();
+ renderHistory();
+}
+
+async function loadProfile(){
+ try{
+  const {data,error}=await db.from("profiles")
+   .select("role").eq("id",user.id).maybeSingle();
+  if(error)throw error;
+  role=data?.role||"member";
+  if(role==="admin")$("adminLink").classList.remove("hidden");
+ }catch(e){console.warn(e.message)}
+}
+
+async function loadBalance(){
+ try{
+  const {data,error}=await db.from("wallet_accounts")
+   .select("balance").eq("user_id",user.id).maybeSingle();
+  if(error)throw error;
+  const b=Number(data?.balance||0);
+  $("balance").textContent=money(b);
+  $("withdrawBalance").textContent=money(b);
+ }catch(e){
+  $("balance").textContent="—";
+  $("withdrawBalance").textContent="Tidak tersedia";
+ }
+}
+
+function showPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $(name).classList.add("active");
+ document.querySelectorAll("#nav button").forEach(b=>{
+  b.classList.toggle("active",b.dataset.page===name);
+ });
+ const titles={
+  dashboard:"Dashboard",blast:"WhatsApp Blast",
+  history:"Riwayat",referral:"Referral",
+  withdraw:"Withdraw",settings:"Pengaturan Akun",admin:"Admin"
+ };
+ $("title").textContent=titles[name]||"GOJO BLAST";
+ if(name==="withdraw"){loadBalance();loadWithdrawals()}
+}
+
+document.querySelectorAll("#nav button[data-page]").forEach(b=>{
+ b.addEventListener("click",()=>showPage(b.dataset.page));
+});
+
+function renderHistory(){
+ $("simCount").textContent=history.length;
+ $("historyRows").innerHTML=history.map(x=>
+ `<tr><td>${x.time}</td><td>${x.count}</td><td>${x.connections}</td><td>${x.delay} dtk</td><td>${x.status}</td></tr>`
+ ).join("")||'<tr><td colspan="5">Belum ada riwayat.</td></tr>';
+ $("recent").textContent=history.length?
+ "Simulasi terakhir: "+history[0].time+" — "+history[0].status:
+ "Belum ada aktivitas.";
+}
+
+async function runSimulation(){
+ if(running)return;
+ const message=$("message").value.trim();
+ const delay=Number($("delay").value);
+ const count=Number($("recipientCount").value);
+ const connections=Number($("connections").value);
+
+ if(!message){$("blastStatus").textContent="Isi pesan terlebih dahulu.";return}
+ if(!Number.isInteger(delay)||delay<3){$("blastStatus").textContent="Delay minimal 3 detik.";return}
+ if(!Number.isInteger(count)||count<1||count>500){$("blastStatus").textContent="Jumlah contoh harus 1–500.";return}
+
+ running=true;
+ $("startBtn").disabled=true;
+ $("stopBtn").disabled=false;
+ let done=0;
+ $("progress").style.width="0%";
+
+ while(done<count&&running){
+  await new Promise(r=>setTimeout(r,Math.min(delay*100,500)));
+  done++;
+  $("progress").style.width=(done/count*100)+"%";
+  $("blastStatus").textContent=`Simulasi ${done}/${count}. Tidak ada pesan dikirim.`;
+ }
+
+ const status=running?"Selesai — simulasi":"Dihentikan — simulasi";
+ running=false;
+ $("startBtn").disabled=false;
+ $("stopBtn").disabled=true;
+
+ history.unshift({
+  time:new Date().toLocaleString("id-ID"),
+  count,connections,delay,status
+ });
+ renderHistory();
+ $("blastStatus").textContent=status+". Tidak ada WhatsApp yang dikirim.";
+}
+
+$("startBtn").addEventListener("click",runSimulation);
+$("stopBtn").addEventListener("click",()=>{running=false;$("stopBtn").disabled=true});
+
+async function loadReferral(){
+ try{
+  const {data,error}=await db.from("referral_codes")
+   .select("code").eq("user_id",user.id).maybeSingle();
+  if(error)throw error;
+  if(data?.code){
+   $("refCode").value=data.code;
+   $("refStatus").textContent="Kode referral akun kamu.";
+  }else $("refStatus").textContent="Kode referral belum tersedia.";
+ }catch(e){$("refStatus").textContent="Kode belum dapat dimuat."}
+}
+
+$("copyRef").addEventListener("click",async()=>{
+ if(!$("refCode").value)return;
+ try{
+  await navigator.clipboard.writeText($("refCode").value);
+  $("refStatus").textContent="Kode berhasil disalin.";
+ }catch(e){$("refStatus").textContent="Silakan salin kode secara manual."}
+});
+
+$("claimRef").addEventListener("click",async()=>{
+ const code=$("refInput").value.trim();
+ if(!code){$("refStatus").textContent="Masukkan kode referral.";return}
+ try{
+  const {error}=await db.rpc("claim_gojo_referral",{p_code:code});
+  if(error)throw error;
+  $("refStatus").textContent="Kode referral berhasil diproses.";
+ }catch(e){$("refStatus").textContent="Gagal: "+e.message}
+});
+
+async function loadWithdrawals(){
+ try{
+  const {data,error}=await db.from("withdrawal_requests")
+   .select("created_at,amount,payment_method,status")
+   .eq("user_id",user.id)
+   .order("created_at",{ascending:false}).limit(20);
+  if(error)throw error;
+  $("withdrawRows").innerHTML=(data||[]).map(x=>
+   `<tr><td>${new Date(x.created_at).toLocaleString("id-ID")}</td><td>${money(x.amount)}</td><td>${x.payment_method}</td><td>${x.status}</td></tr>`
+  ).join("")||'<tr><td colspan="4">Belum ada pengajuan.</td></tr>';
+ }catch(e){
+  $("withdrawRows").innerHTML='<tr><td colspan="4">Data belum dapat dimuat.</td></tr>';
+ }
+}
+
+$("withdrawBtn").addEventListener("click",async()=>{
+ const amount=Number($("amount").value);
+ const method=$("method").value;
+ const destination=$("destination").value.trim();
+
+ if(!Number.isInteger(amount)||amount<20000||!method||!destination){
+  $("withdrawStatus").textContent="Lengkapi data. Minimal Rp20.000.";
+  return;
+ }
+
+ $("withdrawBtn").disabled=true;
+ try{
+  const {error}=await db.rpc("request_gojo_withdrawal",{
+   p_amount:amount,p_method:method,p_destination:destination
+  });
+  if(error)throw error;
+  $("withdrawStatus").textContent="Pengajuan berhasil dikirim untuk ditinjau admin.";
+  $("amount").value="";
+  $("destination").value="";
+  await loadBalance();
+  await loadWithdrawals();
+ }catch(e){$("withdrawStatus").textContent="Gagal: "+e.message}
+ finally{$("withdrawBtn").disabled=false}
+});
+
+$("loginBtn").addEventListener("click",login);
+$("registerBtn").addEventListener("click",register);
+
+$("logoutBtn").addEventListener("click",async()=>{
+ await db.auth.signOut();
+ user=null;
+ $("app").classList.add("hidden");
+ $("auth").classList.remove("hidden");
+ authMsg("Kamu sudah logout.");
+});
+
+(async()=>{
+ try{
+  const {data}=await db.auth.getSession();
+  if(data.session){user=data.session.user;await enter()}
+  else authMsg("Silakan login atau daftar.");
+ }catch(e){authMsg("Koneksi gagal: "+e.message)}
+})();
+</script>
+</body>
+</html>
