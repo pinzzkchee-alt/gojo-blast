@@ -8,203 +8,56 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
- font-family:Arial,sans-serif;
- background:#090914;
- color:#f5f5ff;
-}
+body{font-family:Arial,sans-serif;background:#090914;color:#f5f5ff}
 .hidden{display:none!important}
-.sidebar{
- position:fixed;
- width:230px;
- height:100vh;
- background:#111123;
- padding:22px 16px;
- border-right:1px solid #29294b;
-}
-.logo{
- font-size:24px;
- font-weight:800;
- color:#a78bfa;
- margin-bottom:25px;
-}
+.sidebar{position:fixed;width:230px;height:100vh;background:#111123;padding:22px 16px;border-right:1px solid #29294b;overflow-y:auto}
+.logo{font-size:24px;font-weight:800;color:#a78bfa;margin-bottom:25px}
 .logo span{color:white}
-.nav a{
- display:block;
- padding:13px;
- margin:6px 0;
- border-radius:9px;
- color:#b9b9d0;
- text-decoration:none;
- cursor:pointer;
-}
-.nav a:hover,.nav a.active{
- background:#29204d;
- color:#c4b5fd;
-}
-main{
- margin-left:230px;
- padding:25px;
-}
-header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
- flex-wrap:wrap;
- margin-bottom:25px;
-}
-.profile{
- background:#211b3b;
- padding:11px 15px;
- border-radius:20px;
- color:#c4b5fd;
- font-size:13px;
-}
-.welcome{
- background:linear-gradient(120deg,#38216c,#17172e);
- padding:23px;
- border-radius:16px;
- margin-bottom:20px;
- border:1px solid #514080;
-}
-.welcome p{
- color:#d0c6ed;
- margin-top:8px;
-}
-.stats{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:13px;
- margin-bottom:20px;
-}
-.card,.panel{
- background:#151526;
- border:1px solid #292943;
- border-radius:14px;
- padding:19px;
-}
+.nav a{display:block;padding:12px;margin:5px 0;border-radius:9px;color:#b9b9d0;text-decoration:none;cursor:pointer}
+.nav a:hover,.nav a.active{background:#29204d;color:#c4b5fd}
+main{margin-left:230px;padding:25px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:25px}
+.profile{background:#211b3b;padding:11px 15px;border-radius:20px;color:#c4b5fd;font-size:13px}
+.welcome{background:linear-gradient(120deg,#38216c,#17172e);padding:23px;border-radius:16px;margin-bottom:20px;border:1px solid #514080}
+.welcome p{color:#d0c6ed;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
+.card,.panel{background:#151526;border:1px solid #292943;border-radius:14px;padding:19px}
 .card small{color:#aaaac2}
-.card h2{
- font-size:25px;
- margin-top:10px;
- color:#c4b5fd;
-}
-.panel{
- margin-bottom:18px;
- overflow-x:auto;
-}
+.card h2{font-size:25px;margin-top:10px;color:#c4b5fd;overflow-wrap:anywhere}
+.panel{margin-bottom:18px;overflow-x:auto}
 .panel h3{margin-bottom:15px}
-input:not([type=checkbox]),textarea{
- width:100%;
- padding:12px;
- background:#0d0d1b;
- border:1px solid #393952;
- border-radius:8px;
- color:white;
- margin:8px 0 14px;
-}
+input:not([type=checkbox]),textarea,select{width:100%;padding:12px;background:#0d0d1b;border:1px solid #393952;border-radius:8px;color:white;margin:8px 0 14px}
 input[type=checkbox]{width:auto}
-input[type=file]{
- color:#aaaac2;
- margin:12px 0;
-}
+input[type=file]{color:#aaaac2;margin:12px 0}
 textarea{min-height:100px}
-button{
- background:#8b5cf6;
- color:white;
- border:0;
- padding:12px 15px;
- border-radius:8px;
- font-weight:bold;
- cursor:pointer;
- margin:5px 4px 5px 0;
-}
+button{background:#8b5cf6;color:white;border:0;padding:12px 15px;border-radius:8px;font-weight:bold;cursor:pointer;margin:5px 4px 5px 0}
 button:hover{background:#7040d5}
-button:disabled{
- opacity:.5;
- cursor:not-allowed;
-}
+button:disabled{opacity:.5;cursor:not-allowed}
 .secondary{background:#292943}
 .danger{background:#991b1b}
-table{
- width:100%;
- border-collapse:collapse;
- min-width:440px;
-}
-td,th{
- text-align:left;
- padding:12px;
- border-bottom:1px solid #292943;
- font-size:13px;
- overflow-wrap:anywhere;
-}
+.success{background:#166534}
+table{width:100%;border-collapse:collapse;min-width:520px}
+td,th{text-align:left;padding:12px;border-bottom:1px solid #292943;font-size:13px;overflow-wrap:anywhere}
 th{color:#aaaac2}
 .tag{color:#86efac}
-#authBox{
- max-width:430px;
- margin:55px auto;
- padding:27px;
- background:#151526;
- border:1px solid #393952;
- border-radius:16px;
-}
-#authBox h1{
- color:#c4b5fd;
- margin-bottom:10px;
-}
-#authBox p{
- color:#aaaac2;
- line-height:1.6;
-}
-#authStatus{
- margin-top:15px;
- color:#c4b5fd;
- font-size:13px;
- overflow-wrap:anywhere;
-}
-.note{
- color:#aaaac2;
- font-size:12px;
- line-height:1.7;
- margin-top:12px;
-}
-.admin-label{
- color:#c4b5fd;
- font-weight:bold;
-}
-footer{
- text-align:center;
- color:#77778e;
- padding:25px;
- font-size:12px;
-}
+.note{color:#aaaac2;font-size:12px;line-height:1.7;margin-top:12px}
+.status{font-size:13px;color:#c4b5fd;margin:8px 0;overflow-wrap:anywhere}
+#authBox{max-width:430px;margin:55px auto;padding:27px;background:#151526;border:1px solid #393952;border-radius:16px}
+#authBox h1{color:#c4b5fd;margin-bottom:10px}
+#authBox p{color:#aaaac2;line-height:1.6}
+footer{text-align:center;color:#77778e;padding:25px;font-size:12px}
+
 @media(max-width:900px){
- .sidebar{
-  width:100%;
-  height:auto;
-  position:relative;
-  padding:14px;
- }
- .logo{margin-bottom:10px}
- .nav{
-  display:flex;
-  overflow-x:auto;
-  gap:4px;
- }
- .nav a{
-  white-space:nowrap;
-  padding:10px;
- }
- main{
-  margin:0;
-  padding:16px;
- }
- .stats{grid-template-columns:repeat(2,1fr)}
+.sidebar{width:100%;height:auto;position:relative;padding:14px}
+.logo{margin-bottom:10px}
+.nav{display:flex;overflow-x:auto;gap:4px}
+.nav a{white-space:nowrap;padding:10px}
+main{margin:0;padding:16px}
+.stats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:450px){
- .card{padding:13px}
- .card h2{font-size:21px}
+.card{padding:13px}
+.card h2{font-size:21px}
 }
 </style>
 </head>
@@ -212,870 +65,1455 @@ footer{
 <body>
 
 <div id="authBox">
- <h1>⚡ GOJO BLAST</h1>
- <p>Selamat datang. Silakan login atau buat akun baru.</p>
+<h1>⚡ GOJO BLAST</h1>
+<p>Selamat datang. Silakan login atau buat akun baru.</p>
 
- <label>Email</label>
- <input id="authEmail" type="email"
- autocomplete="email" placeholder="Masukkan email">
+<label>Email</label>
+<input id="authEmail" type="email" placeholder="Masukkan email">
 
- <label>Password</label>
- <input id="authPassword" type="password"
- autocomplete="current-password"
- placeholder="Minimal 6 karakter">
+<label>Password</label>
+<input id="authPassword" type="password" placeholder="Minimal 6 karakter">
 
- <button id="registerBtn" type="button"
- onclick="registerUser()">Daftar Akun</button>
+<button id="registerBtn" onclick="registerUser()">Daftar Akun</button>
+<button id="loginBtn" onclick="loginUser()">Login</button>
 
- <button id="loginBtn" type="button"
- onclick="loginUser()">Login</button>
-
- <p id="authStatus">Memuat sistem...</p>
- <p class="note">
- Jika verifikasi email aktif, periksa kotak masuk setelah mendaftar.
- </p>
+<p id="authStatus" class="status">Memuat sistem...</p>
+<p class="note">Jika verifikasi email aktif, periksa email setelah mendaftar.</p>
 </div>
 
 <aside class="sidebar hidden" id="sidebar">
- <div class="logo">⚡ GOJO <span>BLAST</span></div>
+<div class="logo">⚡ GOJO <span>BLAST</span></div>
 
- <nav class="nav">
-  <a class="active"
-  onclick="showPage('dashboard',this)">⌂ Dashboard</a>
-
-  <a onclick="showPage('contacts',this)">♙ Kontak</a>
-
-  <a onclick="showPage('blast',this)">✉ WhatsApp Blast</a>
-
-  <a onclick="showPage('history',this)">◷ Riwayat</a>
-
-  <a onclick="showPage('settings',this)">⚙ Pengaturan</a>
-
-  <a id="adminNav" class="hidden"
-  onclick="showPage('admin',this)">👑 Super Admin</a>
- </nav>
+<nav class="nav">
+<a class="active" onclick="showPage('dashboard',this)">⌂ Dashboard</a>
+<a onclick="showPage('contacts',this)">♙ Kontak</a>
+<a onclick="showPage('blast',this)">✉ WhatsApp Blast</a>
+<a onclick="showPage('history',this)">◷ Riwayat</a>
+<a onclick="showPage('wallet',this)">💰 Saldo</a>
+<a onclick="showPage('referrals',this)">👥 Referral</a>
+<a onclick="showPage('withdraw',this)">💳 Withdraw</a>
+<a onclick="showPage('settings',this)">⚙ Pengaturan</a>
+<a id="adminNav" class="hidden" onclick="showPage('admin',this)">👑 Super Admin</a>
+</nav>
 </aside>
 
 <main id="mainApp" class="hidden">
+<header>
+<h1 id="pageTitle">Dashboard</h1>
+<div class="profile" id="profileEmail">Gojo Member</div>
+</header>
+<!-- DASHBOARD -->
+<section id="dashboard">
 
- <header>
-  <h1 id="pageTitle">Dashboard</h1>
-  <div class="profile" id="profileEmail">Gojo Member</div>
- </header>
+<div class="welcome">
+<h2>Welcome to Gojo Blast ⚡</h2>
+<p>Kelola kontak dan aktivitas pesan dari satu dashboard.</p>
+</div>
 
- <section id="dashboard">
-  <div class="welcome">
-   <h2>Welcome to Gojo Blast ⚡</h2>
-   <p>Kelola kontak dan aktivitas pesan dari satu dashboard.</p>
-  </div>
+<div class="stats">
 
-  <div class="stats">
-   <div class="card">
-    <small>Total Kontak</small>
-    <h2 id="total">0</h2>
-   </div>
+<div class="card">
+<small>Total Kontak</small>
+<h2 id="total">0</h2>
+</div>
 
-   <div class="card">
-    <small>Pesan Terkirim</small>
-    <h2>0</h2>
-   </div>
+<div class="card">
+<small>Saldo</small>
+<h2 id="dashBalance">Rp0</h2>
+</div>
 
-   <div class="card">
-    <small>Pesan Gagal</small>
-    <h2>0</h2>
-   </div>
+<div class="card">
+<small>Pesan Terkirim</small>
+<h2 id="sentTotal">0</h2>
+</div>
 
-   <div class="card">
-    <small>Status Sistem</small>
-    <h2 style="font-size:18px">Aktif</h2>
-   </div>
-  </div>
+<div class="card">
+<small>Status Sistem</small>
+<h2 style="font-size:18px">Aktif</h2>
+</div>
 
-  <div class="panel">
-   <h3>Aktivitas Gojo Blast</h3>
-   <p class="note">
-    Tambahkan kontak yang sudah memberikan izin menerima pesan.
-   </p>
-  </div>
- </section>
- <section id="contacts" class="hidden">
+</div>
 
- <div class="panel">
-  <h3>Tambah Kontak</h3>
+<div class="panel">
+<h3>Aktivitas Gojo Blast</h3>
+<p class="note">
+Tambahkan kontak yang sudah memberikan izin menerima pesan.
+Pengiriman WhatsApp membutuhkan integrasi resmi.
+</p>
+</div>
 
-  <label>Nama penerima</label>
-  <input id="contactName" placeholder="Contoh: Budi">
-
-  <label>Nomor WhatsApp</label>
-  <input id="contactNumber" placeholder="628xxxxxxxxxx">
-
-  <label>
-   <input type="checkbox" id="consent">
-   Penerima sudah memberikan izin menerima pesan.
-  </label>
-
-  <br>
-  <button onclick="addContact()">+ Tambahkan Kontak</button>
- </div>
-
- <div class="panel">
-  <h3>Impor Kontak CSV</h3>
-
-  <p class="note">
-   Format kolom: name,whatsapp,consent.
-   Hanya kontak yang memberikan izin yang diimpor.
-  </p>
-
-  <input type="file" id="csvFile" accept=".csv,text/csv">
-
-  <button onclick="importCSV()">Impor Kontak</button>
-
-  <button class="secondary" onclick="downloadCSVTemplate()">
-   Unduh Template CSV
-  </button>
- </div>
-
- <div class="panel">
-  <h3>Daftar Kontak</h3>
-
-  <table>
-   <thead>
-    <tr>
-     <th>Nama</th>
-     <th>Nomor</th>
-     <th>Izin</th>
-     <th>Aksi</th>
-    </tr>
-   </thead>
-
-   <tbody id="contactList">
-    <tr>
-     <td colspan="4">Belum ada kontak.</td>
-    </tr>
-   </tbody>
-  </table>
- </div>
 </section>
 
+
+<!-- MANAJEMEN KONTAK -->
+<section id="contacts" class="hidden">
+
+<div class="panel">
+<h3>Tambah Kontak</h3>
+
+<label>Nama penerima</label>
+<input id="contactName" placeholder="Contoh: Budi">
+
+<label>Nomor WhatsApp</label>
+<input id="contactNumber" placeholder="628xxxxxxxxxx">
+
+<label>
+<input type="checkbox" id="consent">
+Penerima sudah memberikan izin menerima pesan.
+</label>
+
+<br>
+
+<button onclick="addContact()">
++ Tambahkan Kontak
+</button>
+
+</div>
+
+
+<div class="panel">
+<h3>Impor Kontak CSV</h3>
+
+<p class="note">
+Format kolom: name,whatsapp,consent.
+Hanya kontak yang memberikan izin yang diimpor.
+</p>
+
+<input type="file" id="csvFile" accept=".csv,text/csv">
+
+<button onclick="importCSV()">
+Impor Kontak
+</button>
+
+<button class="secondary" onclick="downloadCSVTemplate()">
+Unduh Template CSV
+</button>
+
+</div>
+
+
+<div class="panel">
+<h3>Daftar Kontak</h3>
+
+<table>
+<thead>
+<tr>
+<th>Nama</th>
+<th>Nomor</th>
+<th>Izin</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="contactList">
+<tr>
+<td colspan="4">Belum ada kontak.</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+</section>
+
+
+<!-- WHATSAPP BLAST -->
 <section id="blast" class="hidden">
- <div class="panel">
-  <h3>Buat Pesan</h3>
 
-  <p class="note">
-   Gunakan {nama} untuk menyebut nama penerima.
-  </p>
+<div class="panel">
+<h3>Buat Pesan WhatsApp</h3>
 
-  <label>Isi pesan</label>
+<p class="note">
+Gunakan {nama} untuk menyebut nama penerima.
+</p>
 
-  <textarea id="message"
-   placeholder="Halo {nama}, ada informasi terbaru untuk kamu..."></textarea>
+<label>Isi pesan</label>
 
-  <button onclick="previewMessage()">Lihat Pratinjau</button>
+<textarea id="message"
+placeholder="Halo {nama}, ada informasi terbaru untuk kamu..."></textarea>
 
-  <p id="preview" style="color:#c4b5fd;margin-top:15px"></p>
+<button onclick="previewMessage()">
+Lihat Pratinjau
+</button>
 
-  <p class="note">
-   Mode pratinjau saja. Pengiriman sungguhan memerlukan
-   integrasi resmi WhatsApp Business Platform dan persetujuan penerima.
-  </p>
- </div>
+<p id="preview" class="status"></p>
+
+<p class="note">
+Mode pratinjau saja. Pengiriman sungguhan membutuhkan
+integrasi resmi WhatsApp Business Platform dan
+persetujuan penerima.
+</p>
+
+</div>
+
 </section>
 
+
+<!-- RIWAYAT -->
 <section id="history" class="hidden">
- <div class="panel">
-  <h3>Riwayat Aktivitas</h3>
-  <p class="note">Belum ada riwayat pengiriman.</p>
- </div>
+
+<div class="panel">
+<h3>Riwayat Aktivitas</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>Aktivitas</th>
+<th>Status</th>
+<th>Tanggal</th>
+</tr>
+</thead>
+
+<tbody id="historyList">
+<tr>
+<td colspan="3">Belum ada riwayat aktivitas.</td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+<!-- SALDO -->
+<section id="wallet" class="hidden">
+
+<div class="welcome">
+<h2>💰 Dompet Gojo</h2>
+<p>Saldo dan riwayat transaksi akunmu.</p>
+</div>
+
+<div class="stats">
+
+<div class="card">
+<small>Saldo tersedia</small>
+<h2 id="walletBalance">Rp0</h2>
+</div>
+
+<div class="card">
+<small>Total transaksi</small>
+<h2 id="walletTxCount">0</h2>
+</div>
+
+</div>
+
+<div class="panel">
+<h3>Riwayat Transaksi</h3>
+
+<table>
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Jenis</th>
+<th>Jumlah</th>
+<th>Keterangan</th>
+</tr>
+</thead>
+
+<tbody id="walletTxList">
+<tr>
+<td colspan="4">Memuat transaksi...</td>
+</tr>
+</tbody>
+</table>
+
+<p id="walletStatus" class="status"></p>
+
+<button onclick="loadWallet()">
+↻ Segarkan Saldo
+</button>
+
+</div>
 </section>
 
+
+<!-- REFERRAL -->
+<section id="referrals" class="hidden">
+
+<div class="panel">
+<h3>👥 Program Referral</h3>
+
+<p class="note">
+Bagikan kode referral kepada teman.
+Komisi hanya dihitung dari pesan yang diverifikasi
+melalui integrasi WhatsApp resmi.
+</p>
+
+<label>Kode referral kamu</label>
+
+<input id="myReferralCode"
+readonly
+placeholder="Memuat kode...">
+
+<button onclick="copyReferralCode()">
+Salin Kode
+</button>
+
+<p id="referralStatus" class="status"></p>
+</div>
+
+
+<div class="panel">
+<h3>Gunakan Kode Referral</h3>
+
+<label>Kode dari teman</label>
+
+<input id="referralInput"
+placeholder="Masukkan kode referral">
+
+<button onclick="claimReferral()">
+Gunakan Kode
+</button>
+
+</div>
+
+
+<div class="panel">
+<h3>Teman yang Bergabung</h3>
+
+<table>
+<thead>
+<tr>
+<th>ID Anggota</th>
+<th>Tanggal</th>
+</tr>
+</thead>
+
+<tbody id="referralList">
+<tr>
+<td colspan="2">Memuat data...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</section>
+
+
+<!-- WITHDRAW -->
+<section id="withdraw" class="hidden">
+
+<div class="welcome">
+<h2>💳 Pengajuan Withdraw</h2>
+<p>Minimal pengajuan Rp20.000.</p>
+</div>
+
+
+<div class="panel">
+<h3>Buat Pengajuan</h3>
+
+<p>
+Saldo tersedia:
+<strong id="withdrawBalance">Rp0</strong>
+</p>
+
+<label>Nominal (Rupiah)</label>
+
+<input id="withdrawAmount"
+type="number"
+min="20000"
+step="1000"
+placeholder="Minimal 20000">
+
+
+<label>Metode Pembayaran</label>
+
+<select id="withdrawMethod">
+<option value="">Pilih metode</option>
+<option value="DANA">DANA</option>
+<option value="GoPay">GoPay</option>
+<option value="OVO">OVO</option>
+<option value="Transfer Bank">Transfer Bank</option>
+</select>
+
+
+<label>Nomor rekening / akun tujuan</label>
+
+<input id="withdrawDestination"
+placeholder="Masukkan tujuan pembayaran">
+
+
+<button id="withdrawBtn"
+onclick="requestWithdrawal()">
+Kirim Pengajuan
+</button>
+
+<p id="withdrawStatus" class="status"></p>
+
+<p class="note">
+Pengajuan akan ditinjau admin. Status disetujui
+bukan bukti bahwa transfer uang sudah dilakukan.
+</p>
+
+</div>
+
+
+<div class="panel">
+<h3>Riwayat Pengajuan</h3>
+
+<table>
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Nominal</th>
+<th>Metode</th>
+<th>Status</th>
+<th>Catatan</th>
+</tr>
+</thead>
+
+<tbody id="withdrawList">
+<tr>
+<td colspan="5">Memuat pengajuan...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</section>
+<!-- PENGATURAN -->
 <section id="settings" class="hidden">
- <div class="panel">
-  <h3>Pengaturan Akun</h3>
 
-  <label>Email akun</label>
-  <input id="settingsEmail" readonly>
+<div class="panel">
+<h3>⚙ Pengaturan Akun</h3>
 
-  <label>Nama aplikasi</label>
-  <input value="Gojo Blast" readonly>
+<label>Email akun</label>
+<input id="settingsEmail" readonly>
 
-  <label>Versi</label>
-  <input value="4.0" readonly>
+<label>Nama aplikasi</label>
+<input value="Gojo Blast" readonly>
 
-  <button class="danger" onclick="logoutUser()">Logout</button>
- </div>
+<label>Versi aplikasi</label>
+<input value="5.0" readonly>
+
+<button class="danger" onclick="logoutUser()">
+Logout
+</button>
+
+</div>
 </section>
 
+
+<!-- SUPER ADMIN -->
 <section id="admin" class="hidden">
- <div class="welcome">
-  <h2>👑 Super Admin</h2>
-  <p>Panel pengelolaan akun dan anggota Gojo Blast.</p>
- </div>
 
- <div class="stats">
-  <div class="card">
-   <small>Total Akun</small>
-   <h2 id="adminTotal">0</h2>
-  </div>
+<div class="welcome">
+<h2>👑 Super Admin</h2>
+<p>Panel pengelolaan akun dan pengajuan withdraw.</p>
+</div>
 
-  <div class="card">
-   <small>Total Admin</small>
-   <h2 id="adminCount">0</h2>
-  </div>
 
-  <div class="card">
-   <small>Total Member</small>
-   <h2 id="memberCount">0</h2>
-  </div>
+<div class="stats">
 
-  <div class="card">
-   <small>Status Akun</small>
-   <h2 style="font-size:18px">Admin</h2>
-  </div>
- </div>
+<div class="card">
+<small>Total Akun</small>
+<h2 id="adminTotal">0</h2>
+</div>
 
- <div class="panel">
-  <h3>Daftar Anggota</h3>
+<div class="card">
+<small>Total Admin</small>
+<h2 id="adminCount">0</h2>
+</div>
 
-  <table>
-   <thead>
-    <tr>
-     <th>Nama</th>
-     <th>ID Akun</th>
-     <th>Role</th>
-    </tr>
-   </thead>
+<div class="card">
+<small>Total Member</small>
+<h2 id="memberCount">0</h2>
+</div>
 
-   <tbody id="adminUserList">
-    <tr>
-     <td colspan="3">Memuat anggota...</td>
-    </tr>
-   </tbody>
-  </table>
+<div class="card">
+<small>Pengajuan Pending</small>
+<h2 id="pendingWithdrawCount">0</h2>
+</div>
 
-  <p class="note">
-   Perubahan role dilakukan melalui proses admin yang aman di Supabase.
-  </p>
- </div>
+</div>
+
+
+<div class="panel">
+<h3>👥 Daftar Anggota</h3>
+
+<table>
+<thead>
+<tr>
+<th>Nama</th>
+<th>ID Akun</th>
+<th>Role</th>
+</tr>
+</thead>
+
+<tbody id="adminUserList">
+<tr>
+<td colspan="3">Memuat anggota...</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+
+
+<div class="panel">
+<h3>💳 Kelola Pengajuan Withdraw</h3>
+
+<table>
+<thead>
+<tr>
+<th>Pengguna</th>
+<th>Nominal</th>
+<th>Metode</th>
+<th>Tujuan</th>
+<th>Status</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="adminWithdrawList">
+<tr>
+<td colspan="6">Memuat pengajuan...</td>
+</tr>
+</tbody>
+
+</table>
+
+<p id="adminWithdrawStatus" class="status"></p>
+
+<p class="note">
+Periksa data pengajuan sebelum menyetujui atau menolak.
+Persetujuan tidak otomatis melakukan transfer uang.
+</p>
+
+</div>
 </section>
+
 
 <footer>
- GOJO BLAST © 2026 — Modern Messaging Dashboard
+GOJO BLAST © 2026 — Modern Messaging Dashboard
 </footer>
-</main>
 
+</main>
 <script>
 "use strict";
 
-const SUPABASE_URL =
- "https://mgqmhppcijzkgatttfqb.supabase.co";
+const SUPABASE_URL="https://mgqmhppcijzkgatttfqb.supabase.co";
+const SUPABASE_KEY="sb_publishable_B61MzyImsKoBVoErFclTxw_WQPlI9xB";
 
-const SUPABASE_KEY =
- "sb_publishable_B61MzyImsKoBVoErFclTxw_WQPlI9xB";
+const supabaseClient=window.supabase.createClient(
+  SUPABASE_URL,SUPABASE_KEY
+);
 
-let supabaseClient = null;
-let currentUser = null;
-let currentRole = "member";
-let contacts = [];
+let currentUser=null;
+let currentRole="member";
+let contacts=[];
 
-function authMessage(message){
- document.getElementById("authStatus").textContent = message;
+const $=id=>document.getElementById(id);
+
+const rupiah=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
+
+function msg(id,text){
+  $(id).textContent=text;
 }
 
-function setBusy(busy){
- document.getElementById("loginBtn").disabled = busy;
- document.getElementById("registerBtn").disabled = busy;
+function esc(value){
+  return String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[c]));
 }
 
-function client(){
- if(!supabaseClient){
-  throw new Error("Supabase belum siap. Periksa koneksi internet lalu muat ulang.");
- }
- return supabaseClient;
-}
 
-function escapeText(value){
- return String(value ?? "").replace(/[&<>"']/g, c => ({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
- }[c]));
-}
- async function registerUser(){
- if(!supabaseClient){
-  authMessage("Supabase belum termuat. Periksa internet lalu muat ulang.");
-  return;
- }
+/* NAVIGASI */
 
- const email = document.getElementById("authEmail").value.trim();
- const password = document.getElementById("authPassword").value;
+function showPage(page,element){
+  const pages=[
+    "dashboard","contacts","blast","history",
+    "wallet","referrals","withdraw","settings","admin"
+  ];
 
- if(!email || password.length < 6){
-  authMessage("Isi email dan password minimal 6 karakter.");
-  return;
- }
+  pages.forEach(p=>{
+    $(p).classList.toggle("hidden",p!==page);
+  });
 
- setBusy(true);
- authMessage("Sedang membuat akun...");
+  document.querySelectorAll(".nav a").forEach(a=>{
+    a.classList.remove("active");
+  });
 
- try{
-  const {data,error} = await client().auth.signUp({email,password});
-  if(error) throw error;
+  if(element)element.classList.add("active");
 
-  if(data.session && data.user){
-   currentUser = data.user;
-   await openDashboard();
-  }else{
-   authMessage("Pendaftaran berhasil. Periksa email untuk verifikasi, lalu login.");
+  const titles={
+    dashboard:"Dashboard",
+    contacts:"Manajemen Kontak",
+    blast:"WhatsApp Blast",
+    history:"Riwayat",
+    wallet:"Saldo Gojo",
+    referrals:"Referral",
+    withdraw:"Withdraw",
+    settings:"Pengaturan",
+    admin:"Super Admin"
+  };
+
+  $("pageTitle").textContent=titles[page]||"Gojo Blast";
+
+  if(page==="wallet")loadWallet();
+  if(page==="referrals")loadReferralData();
+  if(page==="withdraw"){
+    loadWallet();
+    loadWithdrawals();
   }
- }catch(e){
-  authMessage("Gagal daftar: " + e.message);
- }finally{
-  setBusy(false);
- }
+  if(page==="admin")loadAdminPanel();
+}
+
+
+/* LOGIN */
+
+function authMessage(text){
+  msg("authStatus",text);
+}
+
+async function registerUser(){
+  const email=$("authEmail").value.trim();
+  const password=$("authPassword").value;
+
+  if(!email||password.length<6){
+    authMessage("Isi email dan password minimal 6 karakter.");
+    return;
+  }
+
+  $("registerBtn").disabled=true;
+  authMessage("Sedang membuat akun...");
+
+  try{
+    const {data,error}=await supabaseClient.auth.signUp({
+      email,password
+    });
+
+    if(error)throw error;
+
+    if(data.session){
+      currentUser=data.user;
+      await openDashboard();
+    }else{
+      authMessage("Pendaftaran berhasil. Periksa email untuk verifikasi, lalu login.");
+    }
+  }catch(e){
+    authMessage("Gagal daftar: "+e.message);
+  }finally{
+    $("registerBtn").disabled=false;
+  }
 }
 
 async function loginUser(){
- if(!supabaseClient){
-  authMessage("Supabase belum termuat. Periksa internet lalu muat ulang.");
-  return;
- }
+  const email=$("authEmail").value.trim();
+  const password=$("authPassword").value;
 
- const email = document.getElementById("authEmail").value.trim();
- const password = document.getElementById("authPassword").value;
+  if(!email||!password){
+    authMessage("Masukkan email dan password.");
+    return;
+  }
 
- if(!email || !password){
-  authMessage("Masukkan email dan password.");
-  return;
- }
+  $("loginBtn").disabled=true;
+  authMessage("Sedang login...");
 
- setBusy(true);
- authMessage("Sedang login...");
+  try{
+    const {data,error}=await supabaseClient.auth.signInWithPassword({
+      email,password
+    });
 
- try{
-  const {data,error} = await client().auth.signInWithPassword({
-   email,
-   password
-  });
+    if(error)throw error;
 
-  if(error) throw error;
-
-  currentUser = data.user;
-  await openDashboard();
-
- }catch(e){
-  authMessage("Login gagal: " + e.message);
- }finally{
-  setBusy(false);
- }
+    currentUser=data.user;
+    await openDashboard();
+  }catch(e){
+    authMessage("Login gagal: "+e.message);
+  }finally{
+    $("loginBtn").disabled=false;
+  }
 }
 
 function showLogin(){
- document.getElementById("authBox").classList.remove("hidden");
- document.getElementById("sidebar").classList.add("hidden");
- document.getElementById("mainApp").classList.add("hidden");
+  $("authBox").classList.remove("hidden");
+  $("sidebar").classList.add("hidden");
+  $("mainApp").classList.add("hidden");
 }
 
 async function checkSession(){
- try{
-  const {data,error} = await client().auth.getSession();
-  if(error) throw error;
+  try{
+    const {data,error}=await supabaseClient.auth.getSession();
 
-  if(data.session){
-   currentUser = data.session.user;
-   await openDashboard();
-  }else{
-   showLogin();
-   authMessage("Silakan login atau buat akun.");
+    if(error)throw error;
+
+    if(data.session){
+      currentUser=data.session.user;
+      await openDashboard();
+    }else{
+      showLogin();
+      authMessage("Silakan login atau buat akun.");
+    }
+  }catch(e){
+    showLogin();
+    authMessage("Koneksi gagal: "+e.message);
   }
- }catch(e){
-  showLogin();
-  authMessage("Koneksi/session gagal: " + e.message);
- }
-}
-
-async function openDashboard(){
- if(!currentUser) return;
-
- document.getElementById("authBox").classList.add("hidden");
- document.getElementById("sidebar").classList.remove("hidden");
- document.getElementById("mainApp").classList.remove("hidden");
-
- document.getElementById("profileEmail").textContent =
-  currentUser.email || "Gojo Member";
-
- document.getElementById("settingsEmail").value =
-  currentUser.email || "";
-
- await loadUserRole();
- await loadContacts();
-}
-
-async function loadUserRole(){
- currentRole = "member";
- document.getElementById("adminNav").classList.add("hidden");
-
- try{
-  const {data,error} = await client()
-   .from("profiles")
-   .select("full_name,role")
-   .eq("id",currentUser.id)
-   .maybeSingle();
-
-  if(error) throw error;
-  if(!data) return;
-
-  currentRole = data.role || "member";
-
-  if(currentRole === "admin"){
-   document.getElementById("adminNav").classList.remove("hidden");
-
-   document.getElementById("profileEmail").textContent =
-    "👑 " + (currentUser.email || "Super Admin");
-  }
-
- }catch(e){
-  console.error("Role:",e.message);
- }
-}
-
-async function loadAdminUsers(){
- if(currentRole !== "admin") return;
-
- const list = document.getElementById("adminUserList");
- list.innerHTML = '<tr><td colspan="3">Memuat...</td></tr>';
-
- try{
-  const {data,error} = await client()
-   .from("profiles")
-   .select("id,full_name,role")
-   .order("full_name");
-
-  if(error) throw error;
-
-  const users = data || [];
-
-  document.getElementById("adminTotal").textContent =
-   users.length;
-
-  document.getElementById("adminCount").textContent =
-   users.filter(x=>x.role==="admin").length;
-
-  document.getElementById("memberCount").textContent =
-   users.filter(x=>x.role==="member").length;
-
-  list.innerHTML = users.length ? users.map(u=>`
-   <tr>
-    <td>${escapeText(u.full_name || "Tanpa nama")}</td>
-    <td>${escapeText(u.id)}</td>
-    <td class="admin-label">${escapeText(u.role || "member")}</td>
-   </tr>
-  `).join("") :
-  '<tr><td colspan="3">Belum ada anggota.</td></tr>';
-
- }catch(e){
-  list.innerHTML =
-   '<tr><td colspan="3">Gagal memuat anggota.</td></tr>';
-
-  alert("Gagal memuat anggota: " + e.message);
- }
 }
 
 async function logoutUser(){
- try{
-  const {error} = await client().auth.signOut();
-  if(error) throw error;
+  try{
+    const {error}=await supabaseClient.auth.signOut();
 
-  currentUser = null;
-  currentRole = "member";
-  contacts = [];
+    if(error)throw error;
 
-  showLogin();
-  authMessage("Kamu sudah logout.");
+    currentUser=null;
+    currentRole="member";
+    contacts=[];
 
- }catch(e){
-  alert("Gagal logout: " + e.message);
- }
+    showLogin();
+    authMessage("Kamu sudah logout.");
+  }catch(e){
+    alert("Gagal logout: "+e.message);
+  }
 }
+
+
+/* DASHBOARD */
+
+async function openDashboard(){
+  if(!currentUser)return;
+
+  $("authBox").classList.add("hidden");
+  $("sidebar").classList.remove("hidden");
+  $("mainApp").classList.remove("hidden");
+
+  $("profileEmail").textContent=currentUser.email||"Gojo Member";
+  $("settingsEmail").value=currentUser.email||"";
+
+  await loadUserRole();
+
+  await Promise.all([
+    loadContacts(),
+    loadWallet(),
+    loadWithdrawals(),
+    loadReferralData()
+  ]);
+
+  if(currentRole==="admin"){
+    await loadAdminPanel();
+  }
+}
+
+
+/* ROLE */
+
+async function loadUserRole(){
+  currentRole="member";
+  $("adminNav").classList.add("hidden");
+
+  try{
+    const {data,error}=await supabaseClient
+      .from("profiles")
+      .select("full_name,role")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+    if(error)throw error;
+
+    if(data){
+      currentRole=data.role||"member";
+
+      if(currentRole==="admin"){
+        $("adminNav").classList.remove("hidden");
+        $("profileEmail").textContent="👑 "+currentUser.email;
+      }
+    }
+  }catch(e){
+    console.error("Gagal membaca role:",e.message);
+  }
+}
+ /* MANAJEMEN KONTAK */
 
 async function loadContacts(){
- if(!currentUser) return;
+  if(!currentUser)return;
 
- try{
-  const {data,error} = await client()
-   .from("contacts")
-   .select("*")
-   .eq("user_id",currentUser.id);
+  try{
+    const {data,error}=await supabaseClient
+      .from("contacts")
+      .select("*")
+      .eq("user_id",currentUser.id);
 
-  if(error) throw error;
+    if(error)throw error;
 
-  contacts = data || [];
-  renderContacts();
+    contacts=data||[];
+    renderContacts();
 
- }catch(e){
-  console.error(e);
-
-  document.getElementById("contactList").innerHTML =
-   '<tr><td colspan="4">Gagal memuat kontak. Periksa izin tabel.</td></tr>';
- }
+  }catch(e){
+    $("contactList").innerHTML=
+      '<tr><td colspan="4">Gagal memuat kontak: '+
+      esc(e.message)+'</td></tr>';
+  }
 }
 
-async function addContact(){
- if(!currentUser){
-  alert("Silakan login.");
-  return;
- }
-
- const name =
-  document.getElementById("contactName").value.trim();
-
- const number =
-  document.getElementById("contactNumber").value.trim();
-
- const consent =
-  document.getElementById("consent").checked;
-
- if(!name || !number){
-  alert("Isi nama dan nomor.");
-  return;
- }
-
- if(!/^62[0-9]{8,13}$/.test(number)){
-  alert("Gunakan format nomor 62 tanpa tanda + atau spasi.");
-  return;
- }
-
- if(!consent){
-  alert("Pastikan penerima sudah memberikan izin.");
-  return;
- }
-
- try{
-  const {error} = await client()
-   .from("contacts")
-   .insert({
-    user_id:currentUser.id,
-    name,
-    whatsapp:number,
-    consent:true
-   });
-
-  if(error) throw error;
-
-  document.getElementById("contactName").value = "";
-  document.getElementById("contactNumber").value = "";
-  document.getElementById("consent").checked = false;
-
-  await loadContacts();
-  alert("Kontak berhasil disimpan.");
-
- }catch(e){
-  alert("Gagal menyimpan kontak: " + e.message);
- }
-}
-
-async function editContact(id){
- const contact = contacts.find(
-  x=>String(x.id)===String(id)
- );
-
- if(!contact) return;
-
- const name = prompt("Masukkan nama baru:",contact.name);
- if(name === null) return;
-
- const number = prompt("Masukkan nomor baru:",contact.whatsapp);
- if(number === null) return;
-
- if(!name.trim() ||
-    !/^62[0-9]{8,13}$/.test(number.trim())){
-  alert("Nama atau nomor tidak valid.");
-  return;
- }
-
- try{
-  const {error} = await client()
-   .from("contacts")
-   .update({
-    name:name.trim(),
-    whatsapp:number.trim()
-   })
-   .eq("id",id)
-   .eq("user_id",currentUser.id);
-
-  if(error) throw error;
-
-  await loadContacts();
-  alert("Kontak diperbarui.");
-
- }catch(e){
-  alert("Gagal edit: " + e.message);
- }
- }
- async function deleteContact(id){
- const contact = contacts.find(
-  x=>String(x.id)===String(id)
- );
-
- if(!contact || !confirm("Hapus kontak " + contact.name + "?")) return;
-
- try{
-  const {error} = await client()
-   .from("contacts")
-   .delete()
-   .eq("id",id)
-   .eq("user_id",currentUser.id);
-
-  if(error) throw error;
-
-  await loadContacts();
-  alert("Kontak dihapus.");
-
- }catch(e){
-  alert("Gagal menghapus: " + e.message);
- }
-}
 
 function renderContacts(){
- document.getElementById("total").textContent =
-  contacts.length;
+  $("total").textContent=contacts.length;
 
- const list = document.getElementById("contactList");
+  const list=$("contactList");
 
- if(!contacts.length){
-  list.innerHTML =
-   '<tr><td colspan="4">Belum ada kontak.</td></tr>';
-  return;
- }
+  if(!contacts.length){
+    list.innerHTML=
+      '<tr><td colspan="4">Belum ada kontak.</td></tr>';
+    return;
+  }
 
- list.innerHTML = contacts.map(c=>`
-  <tr>
-   <td>${escapeText(c.name)}</td>
-   <td>${escapeText(c.whatsapp)}</td>
-   <td class="tag">✓ Diizinkan</td>
-   <td>
-    <button data-edit="${escapeText(c.id)}">Edit</button>
-    <button class="danger" data-delete="${escapeText(c.id)}">Hapus</button>
-   </td>
-  </tr>
- `).join("");
+  list.innerHTML=contacts.map(c=>`
+    <tr>
+      <td>${esc(c.name)}</td>
+      <td>${esc(c.whatsapp)}</td>
+      <td class="tag">✓ Diizinkan</td>
+      <td>
+        <button data-edit="${esc(c.id)}">Edit</button>
+        <button class="danger" data-delete="${esc(c.id)}">Hapus</button>
+      </td>
+    </tr>
+  `).join("");
 
- list.querySelectorAll("[data-edit]").forEach(button=>{
-  button.addEventListener("click",()=>{
-   editContact(button.dataset.edit);
+  list.querySelectorAll("[data-edit]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      editContact(b.dataset.edit);
+    });
   });
- });
 
- list.querySelectorAll("[data-delete]").forEach(button=>{
-  button.addEventListener("click",()=>{
-   deleteContact(button.dataset.delete);
+  list.querySelectorAll("[data-delete]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      deleteContact(b.dataset.delete);
+    });
   });
- });
 }
+
+
+/* TAMBAH KONTAK */
+
+async function addContact(){
+  const name=$("contactName").value.trim();
+  const number=$("contactNumber").value.trim();
+  const consent=$("consent").checked;
+
+  if(!name||!number){
+    alert("Isi nama dan nomor.");
+    return;
+  }
+
+  if(!/^62[0-9]{8,13}$/.test(number)){
+    alert("Gunakan format nomor 62 tanpa tanda + atau spasi.");
+    return;
+  }
+
+  if(!consent){
+    alert("Pastikan penerima sudah memberikan izin.");
+    return;
+  }
+
+  try{
+    const {error}=await supabaseClient
+      .from("contacts")
+      .insert({
+        user_id:currentUser.id,
+        name:name,
+        whatsapp:number,
+        consent:true
+      });
+
+    if(error)throw error;
+
+    $("contactName").value="";
+    $("contactNumber").value="";
+    $("consent").checked=false;
+
+    await loadContacts();
+
+    alert("Kontak berhasil disimpan.");
+
+  }catch(e){
+    alert("Gagal menyimpan kontak: "+e.message);
+  }
+}
+
+
+/* EDIT KONTAK */
+
+async function editContact(id){
+  const c=contacts.find(x=>String(x.id)===String(id));
+
+  if(!c)return;
+
+  const name=prompt("Nama baru:",c.name);
+
+  if(name===null)return;
+
+  const number=prompt("Nomor baru:",c.whatsapp);
+
+  if(number===null)return;
+
+  if(!name.trim()||!/^62[0-9]{8,13}$/.test(number.trim())){
+    alert("Nama atau nomor tidak valid.");
+    return;
+  }
+
+  try{
+    const {error}=await supabaseClient
+      .from("contacts")
+      .update({
+        name:name.trim(),
+        whatsapp:number.trim()
+      })
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+    if(error)throw error;
+
+    await loadContacts();
+
+    alert("Kontak berhasil diperbarui.");
+
+  }catch(e){
+    alert("Gagal edit: "+e.message);
+  }
+}
+
+
+/* HAPUS KONTAK */
+
+async function deleteContact(id){
+  const c=contacts.find(x=>String(x.id)===String(id));
+
+  if(!c)return;
+
+  if(!confirm("Hapus kontak "+c.name+"?"))return;
+
+  try{
+    const {error}=await supabaseClient
+      .from("contacts")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+    if(error)throw error;
+
+    await loadContacts();
+
+    alert("Kontak berhasil dihapus.");
+
+  }catch(e){
+    alert("Gagal menghapus: "+e.message);
+  }
+}
+
+
+/* IMPOR CSV */
 
 function parseCSVLine(line){
- const result = [];
- let value = "";
- let quoted = false;
+  const result=[];
+  let value="";
+  let quoted=false;
 
- for(let i=0;i<line.length;i++){
-  const ch = line[i];
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
 
-  if(ch === '"' && quoted && line[i+1] === '"'){
-   value += '"';
-   i++;
-  }else if(ch === '"'){
-   quoted = !quoted;
-  }else if(ch === "," && !quoted){
-   result.push(value.trim());
-   value = "";
-  }else{
-   value += ch;
+    if(ch==='"'&&quoted&&line[i+1]==='"'){
+      value+='"';
+      i++;
+    }else if(ch==='"'){
+      quoted=!quoted;
+    }else if(ch===","&&!quoted){
+      result.push(value.trim());
+      value="";
+    }else{
+      value+=ch;
+    }
   }
- }
 
- result.push(value.trim());
- return result;
+  result.push(value.trim());
+
+  return result;
 }
+
+
+/* DOWNLOAD TEMPLATE CSV */
 
 function downloadCSVTemplate(){
- const content =
-  "name,whatsapp,consent\nBudi,628123456789,true\n";
-
- const blob = new Blob([content],{
-  type:"text/csv;charset=utf-8"
- });
-
- const url = URL.createObjectURL(blob);
- const a = document.createElement("a");
-
- a.href = url;
- a.download = "template-kontak.csv";
- a.click();
-
- setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
-
-async function importCSV(){
- const file =
-  document.getElementById("csvFile").files[0];
-
- if(!file){
-  alert("Pilih file CSV.");
-  return;
- }
-
- if(!currentUser){
-  alert("Silakan login.");
-  return;
- }
-
- try{
-  const content = await file.text();
-
-  const lines = content
-   .replace(/^\uFEFF/,"")
-   .split(/\r?\n/)
-   .filter(x=>x.trim());
-
-  if(lines.length < 2){
-   alert("CSV harus berisi judul kolom dan data.");
-   return;
-  }
-
-  const headers = parseCSVLine(lines[0])
-   .map(x=>x.toLowerCase());
-
-  const nameIndex = headers.indexOf("name");
-  const phoneIndex = headers.indexOf("whatsapp");
-  const consentIndex = headers.indexOf("consent");
-
-  if(nameIndex < 0 || phoneIndex < 0 || consentIndex < 0){
-   alert("Kolom wajib: name, whatsapp, consent.");
-   return;
-  }
-
-  const rows = [];
-
-  for(let i=1;i<lines.length;i++){
-   const cols = parseCSVLine(lines[i]);
-
-   const name = cols[nameIndex] || "";
-   const phone = cols[phoneIndex] || "";
-   const consent = (cols[consentIndex] || "").toLowerCase();
-
-   if(
-    name.trim() &&
-    /^62[0-9]{8,13}$/.test(phone.trim()) &&
-    consent === "true"
-   ){
-    rows.push({
-     user_id:currentUser.id,
-     name:name.trim(),
-     whatsapp:phone.trim(),
-     consent:true
-    });
-   }
-  }
-
-  if(!rows.length){
-   alert("Tidak ada kontak valid dengan izin penerima.");
-   return;
-  }
-
-  const {error} = await client()
-   .from("contacts")
-   .insert(rows);
-
-  if(error) throw error;
-
-  await loadContacts();
-
-  alert(rows.length + " kontak berhasil diimpor.");
-
- }catch(e){
-  alert("Impor gagal: " + e.message);
- }
-}
-
-function showPage(page,element){
- document.querySelectorAll("main>section")
-  .forEach(section=>{
-   section.classList.add("hidden");
+  const blob=new Blob([
+    "name,whatsapp,consent\nBudi,628123456789,true\n"
+  ],{
+    type:"text/csv;charset=utf-8"
   });
 
- const target = document.getElementById(page);
+  const url=URL.createObjectURL(blob);
 
- if(target){
-  target.classList.remove("hidden");
- }
+  const a=document.createElement("a");
 
- document.querySelectorAll(".nav a")
-  .forEach(a=>a.classList.remove("active"));
+  a.href=url;
+  a.download="template-kontak.csv";
+  a.click();
 
- if(element){
-  element.classList.add("active");
- }
-
- const titles = {
-  dashboard:"Dashboard",
-  contacts:"Manajemen Kontak",
-  blast:"WhatsApp Blast",
-  history:"Riwayat",
-  settings:"Pengaturan",
-  admin:"Super Admin"
- };
-
- document.getElementById("pageTitle").textContent =
-  titles[page] || "Gojo Blast";
-
- if(page === "admin"){
-  loadAdminUsers();
- }
+  setTimeout(()=>{
+    URL.revokeObjectURL(url);
+  },1000);
 }
+
+
+/* PROSES IMPOR CSV */
+
+async function importCSV(){
+  const file=$("csvFile").files[0];
+
+  if(!file){
+    alert("Pilih file CSV terlebih dahulu.");
+    return;
+  }
+
+  try{
+    const lines=(await file.text())
+      .replace(/^\uFEFF/,"")
+      .split(/\r?\n/)
+      .filter(x=>x.trim());
+
+    if(lines.length<2){
+      alert("CSV harus berisi judul kolom dan data.");
+      return;
+    }
+
+    const headers=parseCSVLine(lines[0])
+      .map(x=>x.toLowerCase());
+
+    const ni=headers.indexOf("name");
+    const pi=headers.indexOf("whatsapp");
+    const ci=headers.indexOf("consent");
+
+    if(ni<0||pi<0||ci<0){
+      alert("Kolom wajib: name, whatsapp, consent.");
+      return;
+    }
+
+    const rows=[];
+
+    for(let i=1;i<lines.length;i++){
+      const c=parseCSVLine(lines[i]);
+
+      const name=c[ni]||"";
+      const phone=c[pi]||"";
+      const consent=(c[ci]||"").toLowerCase();
+
+      if(
+        name.trim()&&
+        /^62[0-9]{8,13}$/.test(phone.trim())&&
+        consent==="true"
+      ){
+        rows.push({
+          user_id:currentUser.id,
+          name:name.trim(),
+          whatsapp:phone.trim(),
+          consent:true
+        });
+      }
+    }
+
+    if(!rows.length){
+      alert("Tidak ada kontak valid dengan izin penerima.");
+      return;
+    }
+
+    const {error}=await supabaseClient
+      .from("contacts")
+      .insert(rows);
+
+    if(error)throw error;
+
+    await loadContacts();
+
+    alert(rows.length+" kontak berhasil diimpor.");
+
+  }catch(e){
+    alert("Impor gagal: "+e.message);
+  }
+}
+
+
+/* PRATINJAU PESAN */
 
 function previewMessage(){
- const message =
-  document.getElementById("message").value.trim();
+  const message=$("message").value.trim();
 
- const preview =
-  document.getElementById("preview");
+  if(!message){
+    msg("preview","Tulis pesan terlebih dahulu.");
+    return;
+  }
 
- if(!message){
-  preview.textContent = "Tulis pesan terlebih dahulu.";
-  return;
- }
+  const sampleName=contacts[0]?.name||"Penerima";
 
- const sampleName =
-  contacts[0]?.name || "Penerima";
+  msg(
+    "preview",
+    message.replaceAll("{nama}",sampleName)
+  );
+     }
+ /* =================================
+   WALLET / SALDO
+================================= */
 
- preview.textContent =
-  message.replaceAll("{nama}",sampleName);
+async function loadWallet(){
+  if(!currentUser)return;
+
+  try{
+    const {data:wallet,error}=await supabaseClient
+      .from("wallet_accounts")
+      .select("balance")
+      .eq("user_id",currentUser.id)
+      .maybeSingle();
+
+    if(error)throw error;
+
+    const balance=Number(wallet?.balance||0);
+
+    if($("walletBalance")){
+      $("walletBalance").textContent=
+        "Rp "+balance.toLocaleString("id-ID");
+    }
+
+    const {data:transactions,error:txError}=await supabaseClient
+      .from("wallet_transactions")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("created_at",{ascending:false})
+      .limit(30);
+
+    if(txError)throw txError;
+
+    if($("transactionList")){
+      $("transactionList").innerHTML=(transactions||[]).length
+        ?transactions.map(t=>`
+          <tr>
+            <td>${esc(t.description||t.transaction_type)}</td>
+            <td>Rp ${Number(t.amount||0).toLocaleString("id-ID")}</td>
+            <td>${new Date(t.created_at).toLocaleString("id-ID")}</td>
+          </tr>
+        `).join("")
+        :'<tr><td colspan="3">Belum ada transaksi.</td></tr>';
+    }
+
+  }catch(e){
+    console.error("Wallet:",e);
+    if($("walletBalance")){
+      $("walletBalance").textContent="Gagal memuat saldo";
+    }
+  }
 }
 
-document.addEventListener("DOMContentLoaded",()=>{
- if(!window.supabase || !window.supabase.createClient){
-  authMessage(
-   "Library Supabase gagal dimuat. Periksa internet lalu muat ulang."
-  );
-  return;
- }
 
- try{
-  supabaseClient = window.supabase.createClient(
-   SUPABASE_URL,
-   SUPABASE_KEY
-  );
+/* =================================
+   REFERRAL
+================================= */
 
-  authMessage("Sistem siap. Silakan login atau daftar.");
+async function loadReferralData(){
+  if(!currentUser)return;
 
-  checkSession();
+  try{
+    const {data:codes,error}=await supabaseClient
+      .from("referral_codes")
+      .select("code")
+      .eq("user_id",currentUser.id)
+      .limit(1);
 
- }catch(e){
-  authMessage("Gagal menyiapkan aplikasi: " + e.message);
- }
-});
+    if(error)throw error;
+
+    const code=codes?.[0]?.code||"-";
+
+    if($("referralCode")){
+      $("referralCode").textContent=code;
+    }
+
+    const {count,error:countError}=await supabaseClient
+      .from("referrals")
+      .select("*",{count:"exact",head:true})
+      .eq("referrer_id",currentUser.id);
+
+    if(countError)throw countError;
+
+    if($("referralCount")){
+      $("referralCount").textContent=String(count||0);
+    }
+
+  }catch(e){
+    console.error("Referral:",e);
+
+    if($("referralCode")){
+      $("referralCode").textContent="Belum tersedia";
+    }
+  }
+}
+
+
+function copyReferralCode(){
+  const code=$("referralCode")?.textContent||"";
+
+  if(!code||code==="-"||code==="Belum tersedia"){
+    alert("Kode referral belum tersedia.");
+    return;
+  }
+
+  navigator.clipboard.writeText(code)
+    .then(()=>alert("Kode referral berhasil disalin."))
+    .catch(()=>alert("Tidak dapat menyalin kode."));
+}
+
+
+async function claimReferral(){
+  const code=$("claimReferralInput")?.value.trim();
+
+  if(!code){
+    alert("Masukkan kode referral.");
+    return;
+  }
+
+  try{
+    const {error}=await supabaseClient.rpc(
+      "claim_gojo_referral",
+      {p_code:code}
+    );
+
+    if(error)throw error;
+
+    alert("Kode referral berhasil diklaim.");
+
+    $("claimReferralInput").value="";
+
+    await loadReferralData();
+    await loadWallet();
+
+  }catch(e){
+    alert("Gagal klaim referral: "+e.message);
+  }
+}
+
+
+/* =================================
+   PENGAJUAN PENARIKAN SALDO
+================================= */
+
+async function requestWithdrawal(){
+  const amount=Number($("withdrawalAmount")?.value);
+  const method=$("withdrawalMethod")?.value;
+  const destination=$("withdrawalDestination")?.value.trim();
+
+  if(!Number.isFinite(amount)||amount<20000){
+    alert("Minimal penarikan Rp20.000.");
+    return;
+  }
+
+  if(!method||!destination){
+    alert("Lengkapi metode dan tujuan pembayaran.");
+    return;
+  }
+
+  if(!confirm(
+    "Ajukan penarikan Rp "+
+    amount.toLocaleString("id-ID")+"?"
+  ))return;
+
+  try{
+    const {error}=await supabaseClient.rpc(
+      "request_gojo_withdrawal",
+      {
+        p_amount:amount,
+        p_method:method,
+        p_destination:destination
+      }
+    );
+
+    if(error)throw error;
+
+    alert("Permintaan penarikan berhasil diajukan.");
+
+    $("withdrawalAmount").value="";
+    $("withdrawalDestination").value="";
+
+    await loadWallet();
+    await loadWithdrawals();
+
+  }catch(e){
+    alert("Penarikan gagal: "+e.message);
+  }
+     }
+ /* =================================
+   RIWAYAT PENARIKAN
+================================= */
+
+async function loadWithdrawals(){
+  if(!currentUser)return;
+
+  try{
+    const {data,error}=await supabaseClient
+      .from("withdrawal_requests")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("created_at",{ascending:false});
+
+    if(error)throw error;
+
+    const target=$("withdrawalList");
+    if(!target)return;
+
+    target.innerHTML=(data||[]).length
+      ?data.map(w=>`
+        <tr>
+          <td>Rp ${Number(w.amount).toLocaleString("id-ID")}</td>
+          <td>${esc(w.payment_method)}</td>
+          <td>${esc(w.destination)}</td>
+          <td>${esc(w.status)}</td>
+          <td>${new Date(w.created_at).toLocaleString("id-ID")}</td>
+        </tr>
+      `).join("")
+      :'<tr><td colspan="5">Belum ada penarikan.</td></tr>';
+
+  }catch(e){
+    console.error("Penarikan:",e);
+
+    if($("withdrawalList")){
+      $("withdrawalList").innerHTML=
+        '<tr><td colspan="5">Gagal memuat riwayat.</td></tr>';
+    }
+  }
+}
+
+
+/* =================================
+   PANEL ADMIN
+================================= */
+
+async function loadAdminPanel(){
+  if(!currentUser)return;
+
+  try{
+    const {data:profile,error:profileError}=await supabaseClient
+      .from("profiles")
+      .select("role")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+    if(profileError)throw profileError;
+
+    if(profile?.role!=="admin")return;
+
+    const {data:members,error:memberError}=await supabaseClient
+      .from("profiles")
+      .select("id,full_name,role")
+      .order("full_name");
+
+    if(memberError)throw memberError;
+
+    if($("adminMemberCount")){
+      $("adminMemberCount").textContent=String((members||[]).length);
+    }
+
+    if($("adminMembers")){
+      $("adminMembers").innerHTML=(members||[]).map(m=>`
+        <tr>
+          <td>${esc(m.full_name||"Tanpa nama")}</td>
+          <td>${esc(m.id)}</td>
+          <td>${esc(m.role||"user")}</td>
+        </tr>
+      `).join("");
+    }
+
+    const {data:requests,error:requestError}=await supabaseClient
+      .from("withdrawal_requests")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(100);
+
+    if(requestError)throw requestError;
+
+    const pending=(requests||[]).filter(
+      r=>r.status==="pending"
+    );
+
+    if($("adminPendingCount")){
+      $("adminPendingCount").textContent=String(pending.length);
+    }
+
+    if($("adminWithdrawals")){
+      $("adminWithdrawals").innerHTML=(requests||[]).length
+        ?requests.map(w=>`
+          <tr>
+            <td>${esc(w.user_id)}</td>
+            <td>Rp ${Number(w.amount).toLocaleString("id-ID")}</td>
+            <td>${esc(w.payment_method)}</td>
+            <td>${esc(w.destination)}</td>
+            <td>${esc(w.status)}</td>
+            <td>
+              ${w.status==="pending"?`
+                <button data-approve="${esc(w.id)}">Setujui</button>
+                <button class="danger" data-reject="${esc(w.id)}">Tolak</button>
+              `:"-"}
+            </td>
+          </tr>
+        `).join("")
+        :'<tr><td colspan="6">Belum ada permintaan.</td></tr>';
+
+      $("adminWithdrawals").querySelectorAll("[data-approve]")
+        .forEach(b=>b.addEventListener("click",()=>{
+          reviewWithdrawal(b.dataset.approve,true);
+        }));
+
+      $("adminWithdrawals").querySelectorAll("[data-reject]")
+        .forEach(b=>b.addEventListener("click",()=>{
+          reviewWithdrawal(b.dataset.reject,false);
+        }));
+    }
+
+  }catch(e){
+    console.error("Admin:",e);
+    alert("Panel admin gagal dimuat: "+e.message);
+  }
+}
+
+
+/* =================================
+   SETUJUI / TOLAK PENARIKAN
+================================= */
+
+async function reviewWithdrawal(id,approve){
+  const action=approve?"menyetujui":"menolak";
+
+  if(!confirm("Yakin ingin "+action+" penarikan ini?"))return;
+
+  const note=prompt("Catatan admin (opsional):")||null;
+
+  try{
+    const {error}=await supabaseClient.rpc(
+      "review_gojo_withdrawal",
+      {
+        p_request_id:id,
+        p_approve:approve,
+        p_note:note
+      }
+    );
+
+    if(error)throw error;
+
+    alert("Permintaan berhasil diproses.");
+
+    await loadAdminPanel();
+    await loadWallet();
+    await loadWithdrawals();
+
+  }catch(e){
+    alert("Gagal memproses: "+e.message);
+  }
+}
+
+
+/* =================================
+   INISIALISASI APLIKASI
+================================= */
+
+checkSession();
 
 </script>
 </body>
