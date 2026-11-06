@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gojo Blast</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#090914;color:#f5f5ff}
+.sidebar{position:fixed;width:230px;height:100vh;background:#111123;padding:25px 18px;border-right:1px solid #29294b}
+.logo{font-size:24px;font-weight:800;color:#a78bfa;margin-bottom:35px}
+.logo span{color:white}
+.nav a{display:block;padding:14px;margin:7px 0;border-radius:10px;color:#b9b9d0;text-decoration:none;cursor:pointer}
+.nav a:hover,.nav a.active{background:#29204d;color:#c4b5fd}
+main{margin-left:230px;padding:30px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;gap:15px}
+header h1{font-size:25px}
+.profile{background:#211b3b;padding:11px 16px;border-radius:20px;color:#c4b5fd}
+.welcome{background:linear-gradient(120deg,#38216c,#17172e);padding:25px;border-radius:18px;margin-bottom:25px;border:1px solid #514080}
+.welcome h2{font-size:25px;margin-bottom:10px}
+.welcome p{color:#d0c6ed}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px}
+.card{background:#151526;border:1px solid #292943;border-radius:15px;padding:20px}
+.card small{color:#aaaac2}
+.card h2{font-size:27px;margin-top:12px;color:#c4b5fd}
+.panel{background:#151526;border:1px solid #292943;padding:22px;border-radius:16px;margin-bottom:20px}
+.panel h3{margin-bottom:18px}
+input,textarea,select{width:100%;padding:13px;background:#0d0d1b;border:1px solid #393952;border-radius:9px;color:white;margin:8px 0 15px;outline:none}
+textarea{min-height:110px;resize:vertical}
+button{background:#8b5cf6;color:white;border:0;padding:13px 20px;border-radius:9px;font-weight:bold;cursor:pointer}
+button:hover{background:#7040d5}
+.secondary{background:#292943}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:left;padding:13px;border-bottom:1px solid #292943;font-size:13px}
+th{color:#aaaac2}
+.tag{color:#86efac}
+.hidden{display:none}
+footer{text-align:center;color:#77778e;padding:25px;font-size:12px}
+@media(max-width:900px){
+.sidebar{width:100%;height:auto;position:relative;padding:15px}
+.logo{margin-bottom:12px}
+.nav{display:flex;overflow-x:auto;gap:5px}
+.nav a{white-space:nowrap;padding:10px}
+main{margin:0;padding:17px}
+.stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:450px){.stats{grid-template-columns:1fr 1fr}.card{padding:14px}.card h2{font-size:22px}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+ <div class="logo">⚡ GOJO <span>BLAST</span></div>
+ <nav class="nav">
+  <a class="active" onclick="showPage('dashboard',this)">⌂ Dashboard</a>
+  <a onclick="showPage('contacts',this)">♙ Kontak</a>
+  <a onclick="showPage('blast',this)">✉ WhatsApp Blast</a>
+  <a onclick="showPage('history',this)">◷ Riwayat</a>
+  <a onclick="showPage('settings',this)">⚙ Pengaturan</a>
+ </nav>
+</aside>
+
+<main>
+<header>
+ <h1 id="pageTitle">Dashboard</h1>
+ <div class="profile">⚡ Gojo Member</div>
+</header>
+
+<section id="dashboard">
+ <div class="welcome">
+  <h2>Welcome to Gojo Blast ⚡</h2>
+  <p>Kelola kontak dan aktivitas pesan dari satu dashboard.</p>
+ </div>
+ <div class="stats">
+  <div class="card"><small>Total Kontak</small><h2 id="total">0</h2></div>
+  <div class="card"><small>Pesan Terkirim</small><h2>0</h2></div>
+  <div class="card"><small>Pesan Gagal</small><h2>0</h2></div>
+  <div class="card"><small>Status Sistem</small><h2 style="font-size:18px">Demo</h2></div>
+ </div>
+ <div class="panel">
+  <h3>Aktivitas Gojo Blast</h3>
+  <p style="color:#aaaac2;line-height:1.8">Dashboard awal berhasil dimuat. Tambahkan kontak dan kelola pesan yang ditujukan kepada penerima yang sudah memberikan izin.</p>
+ </div>
+</section>
+
+<section id="contacts" class="hidden">
+ <div class="panel">
+  <h3>Tambah Kontak</h3>
+  <label>Nama penerima</label>
+  <input id="contactName" placeholder="Contoh: Budi">
+  <label>Nomor WhatsApp</label>
+  <input id="contactNumber" placeholder="628xxxxxxxxxx">
+  <label><input type="checkbox" id="consent" style="width:auto"> Penerima sudah memberikan izin menerima pesan</label>
+  <button onclick="addContact()">+ Tambahkan Kontak</button>
+ </div>
+ <div class="panel">
+  <h3>Daftar Kontak</h3>
+  <table><thead><tr><th>Nama</th><th>Nomor</th><th>Izin</th></tr></thead>
+  <tbody id="contactList"><tr><td colspan="3">Belum ada kontak.</td></tr></tbody></table>
+ </div>
+</section>
+
+<section id="blast" class="hidden">
+ <div class="panel">
+  <h3>Buat Pesan</h3>
+  <p style="color:#aaaac2;margin-bottom:15px">Gunakan {nama} untuk menyebut nama penerima.</p>
+  <label>Isi pesan</label>
+  <textarea id="message" placeholder="Halo {nama}, ada informasi terbaru untuk kamu..."></textarea>
+  <label>Jeda pengiriman (simulasi)</label>
+  <select id="delay"><option>5 detik</option><option>10 detik</option><option>15 detik</option><option>30 detik</option></select>
+  <button onclick="previewMessage()">Lihat Pratinjau</button>
+  <p id="preview" style="color:#c4b5fd;margin-top:15px"></p>
+  <p style="color:#aaaac2;font-size:12px;margin-top:15px">Mode demo: tombol ini hanya menampilkan pratinjau. Belum mengirim pesan WhatsApp.</p>
+ </div>
+</section>
+
+<section id="history" class="hidden">
+ <div class="panel">
+  <h3>Riwayat Aktivitas</h3>
+  <p style="color:#aaaac2">Belum ada aktivitas.</p>
+ </div>
+</section>
+
+<section id="settings" class="hidden">
+ <div class="panel">
+  <h3>Pengaturan Akun</h3>
+  <label>Nama aplikasi</label>
+  <input value="Gojo Blast" readonly>
+  <label>Versi</label>
+  <input value="1.0 - Demo" readonly>
+  <p style="color:#aaaac2">Pengaturan akun dan keamanan akan ditambahkan setelah backend terhubung.</p>
+ </div>
+</section>
+
+<footer>GOJO BLAST © 2026 — Modern Messaging Dashboard</footer>
+</main>
+
+<script>
+let contacts=[];
+function showPage(id,el){
+ document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
+ el.classList.add('active');
+ document.getElementById('pageTitle').textContent=el.textContent.trim();
+}
+function addContact(){
+ const name=document.getElementById('contactName').value.trim();
+ const number=document.getElementById('contactNumber').value.trim();
+ const consent=document.getElementById('consent').checked;
+ if(!name||!number){alert('Isi nama dan nomor terlebih dahulu.');return}
+ if(!/^62[0-9]{8,13}$/.test(number)){alert('Gunakan format nomor 62, tanpa tanda + atau spasi.');return}
+ if(!consent){alert('Pastikan penerima sudah memberikan izin.');return}
+ contacts.push({name,number});
+ document.getElementById('total').textContent=contacts.length;
+ document.getElementById('contactList').innerHTML=contacts.map(c=>
+ `<tr><td>${escapeText(c.name)}</td><td>${escapeText(c.number)}</td><td class="tag">✓ Diizinkan</td></tr>`
+ ).join('');
+ document.getElementById('contactName').value='';
+ document.getElementById('contactNumber').value='';
+ document.getElementById('consent').checked=false;
+}
+function escapeText(s){
+ return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function previewMessage(){
+ const message=document.getElementById('message').value.trim();
+ if(!message){alert('Tulis pesan terlebih dahulu.');return}
+ document.getElementById('preview').textContent='Pratinjau: '+message.replaceAll('{nama}','Budi');
+}
+</script>
+</body>
+   </html>
