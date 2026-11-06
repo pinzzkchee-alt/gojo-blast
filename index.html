@@ -28,12 +28,13 @@ header h1{font-size:25px}
 .panel{background:#151526;border:1px solid #292943;padding:22px;border-radius:16px;margin-bottom:20px;overflow-x:auto}
 .panel h3{margin-bottom:18px}
 input:not([type=checkbox]),textarea,select{width:100%;padding:13px;background:#0d0d1b;border:1px solid #393952;border-radius:9px;color:white;margin:8px 0 15px;outline:none}
+input[type=file]{width:100%;margin:12px 0;color:#aaaac2}
 textarea{min-height:110px;resize:vertical}
-button{background:#8b5cf6;color:white;border:0;padding:13px 20px;border-radius:9px;font-weight:bold;cursor:pointer;margin:5px 5px 5px 0}
+button{background:#8b5cf6;color:white;border:0;padding:12px 16px;border-radius:9px;font-weight:bold;cursor:pointer;margin:5px 5px 5px 0}
 button:hover{background:#7040d5}
 .secondary{background:#292943}
 .danger{background:#991b1b}
-table{width:100%;border-collapse:collapse;min-width:350px}
+table{width:100%;border-collapse:collapse;min-width:440px}
 td,th{text-align:left;padding:13px;border-bottom:1px solid #292943;font-size:13px;overflow-wrap:anywhere}
 th{color:#aaaac2}
 .tag{color:#86efac}
@@ -63,7 +64,7 @@ main{margin:0;padding:17px}
 
 <body>
 
-<!-- LOGIN DAN DAFTAR -->
+<!-- LOGIN -->
 <div id="authBox">
 <h1>⚡ GOJO BLAST</h1>
 <p>Selamat datang. Silakan login atau buat akun baru.</p>
@@ -87,7 +88,6 @@ periksa kotak masuk untuk mengonfirmasi pendaftaran.
 <!-- SIDEBAR -->
 <aside class="sidebar hidden" id="sidebar">
 <div class="logo">⚡ GOJO <span>BLAST</span></div>
-
 <nav class="nav">
 <a class="active" onclick="showPage('dashboard',this)">⌂ Dashboard</a>
 <a onclick="showPage('contacts',this)">♙ Kontak</a>
@@ -98,7 +98,6 @@ periksa kotak masuk untuk mengonfirmasi pendaftaran.
 </nav>
 </aside>
 
-<!-- APLIKASI -->
 <main id="mainApp" class="hidden">
 
 <header>
@@ -119,17 +118,14 @@ periksa kotak masuk untuk mengonfirmasi pendaftaran.
 <small>Total Kontak</small>
 <h2 id="total">0</h2>
 </div>
-
 <div class="card">
 <small>Pesan Terkirim</small>
 <h2>0</h2>
 </div>
-
 <div class="card">
 <small>Pesan Gagal</small>
 <h2>0</h2>
 </div>
-
 <div class="card">
 <small>Status Sistem</small>
 <h2 style="font-size:18px">Aktif</h2>
@@ -167,6 +163,22 @@ Penerima sudah memberikan izin menerima pesan.
 <button onclick="addContact()">+ Tambahkan Kontak</button>
 </div>
 
+<!-- IMPOR CSV -->
+<div class="panel">
+<h3>Impor Kontak CSV</h3>
+
+<p class="note">
+Gunakan format kolom: name,whatsapp,consent.
+Hanya kontak dengan izin bernilai true yang akan diimpor.
+</p>
+
+<input type="file" id="csvFile" accept=".csv,text/csv">
+
+<button onclick="importCSV()">Impor Kontak</button>
+<button class="secondary" onclick="downloadCSVTemplate()">Unduh Template CSV</button>
+</div>
+
+<!-- DAFTAR KONTAK -->
 <div class="panel">
 <h3>Daftar Kontak</h3>
 
@@ -176,11 +188,12 @@ Penerima sudah memberikan izin menerima pesan.
 <th>Nama</th>
 <th>Nomor</th>
 <th>Izin</th>
+<th>Aksi</th>
 </tr>
 </thead>
 
 <tbody id="contactList">
-<tr><td colspan="3">Belum ada kontak.</td></tr>
+<tr><td colspan="4">Belum ada kontak.</td></tr>
 </tbody>
 </table>
 </div>
@@ -215,21 +228,17 @@ WhatsApp Business Platform.
 
 <!-- RIWAYAT -->
 <section id="history" class="hidden">
-
 <div class="panel">
 <h3>Riwayat Aktivitas</h3>
-
 <p style="color:#aaaac2;line-height:1.7">
 Belum ada riwayat pengiriman. Aktivitas pengiriman akan
 tersedia setelah integrasi resmi ditambahkan.
 </p>
 </div>
-
 </section>
 
 <!-- PENGATURAN -->
 <section id="settings" class="hidden">
-
 <div class="panel">
 <h3>Pengaturan Akun</h3>
 
@@ -240,11 +249,10 @@ tersedia setelah integrasi resmi ditambahkan.
 <input value="Gojo Blast" readonly>
 
 <label>Versi</label>
-<input value="2.0" readonly>
+<input value="3.0" readonly>
 
 <button class="danger" onclick="logoutUser()">Logout</button>
 </div>
-
 </section>
 
 <!-- SUPER ADMIN -->
@@ -256,27 +264,22 @@ tersedia setelah integrasi resmi ditambahkan.
 </div>
 
 <div class="stats">
-
 <div class="card">
 <small>Total Akun</small>
 <h2 id="adminTotal">0</h2>
 </div>
-
 <div class="card">
 <small>Total Admin</small>
 <h2 id="adminCount">0</h2>
 </div>
-
 <div class="card">
 <small>Total Member</small>
 <h2 id="memberCount">0</h2>
 </div>
-
 <div class="card">
 <small>Status Akun</small>
 <h2 style="font-size:18px">Admin</h2>
 </div>
-
 </div>
 
 <div class="panel">
@@ -298,7 +301,7 @@ tersedia setelah integrasi resmi ditambahkan.
 
 <p class="note">
 Data anggota ditampilkan dari tabel profiles.
-Pengaturan role dilakukan melalui proses admin yang aman di Supabase.
+Pengubahan role dilakukan melalui proses admin yang aman di Supabase.
 </p>
 </div>
 
@@ -323,8 +326,8 @@ const supabaseClient = window.supabase.createClient(
 );
 
 let currentUser = null;
-let contacts = [];
 let currentRole = "member";
+let contacts = [];
 
 // ==================================
 // PESAN STATUS
@@ -339,7 +342,6 @@ function authMessage(message) {
 // ==================================
 
 async function registerUser() {
-
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
 
@@ -351,8 +353,8 @@ async function registerUser() {
   authMessage("Sedang membuat akun...");
 
   const { data, error } = await supabaseClient.auth.signUp({
-    email: email,
-    password: password
+    email,
+    password
   });
 
   if (error) {
@@ -373,7 +375,6 @@ async function registerUser() {
 // ==================================
 
 async function loginUser() {
-
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
 
@@ -385,8 +386,8 @@ async function loginUser() {
   authMessage("Sedang login...");
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email: email,
-    password: password
+    email,
+    password
   });
 
   if (error) {
@@ -399,11 +400,10 @@ async function loginUser() {
 }
 
 // ==================================
-// MEMERIKSA SESI
+// CEK SESI
 // ==================================
 
 async function checkSession() {
-
   const { data, error } = await supabaseClient.auth.getSession();
 
   if (error) {
@@ -430,7 +430,6 @@ function showLogin() {
 // ==================================
 
 async function openDashboard() {
-
   if (!currentUser) return;
 
   document.getElementById("authBox").classList.add("hidden");
@@ -448,17 +447,16 @@ async function openDashboard() {
 }
 
 // ==================================
-// ROLE DAN SUPER ADMIN
+// ROLE PENGGUNA
 // ==================================
 
 async function loadUserRole() {
-
   if (!currentUser) return;
 
   const adminNav = document.getElementById("adminNav");
 
-  adminNav.classList.add("hidden");
   currentRole = "member";
+  adminNav.classList.add("hidden");
 
   const { data, error } = await supabaseClient
     .from("profiles")
@@ -471,10 +469,7 @@ async function loadUserRole() {
     return;
   }
 
-  if (!data) {
-    console.warn("Profil pengguna belum ditemukan.");
-    return;
-  }
+  if (!data) return;
 
   currentRole = data.role || "member";
 
@@ -486,17 +481,14 @@ async function loadUserRole() {
 }
 
 // ==================================
-// DATA ANGGOTA SUPER ADMIN
+// DATA SUPER ADMIN
 // ==================================
 
 async function loadAdminUsers() {
-
   if (currentRole !== "admin") return;
 
   const list = document.getElementById("adminUserList");
-
-  list.innerHTML =
-    '<tr><td colspan="3">Memuat anggota...</td></tr>';
+  list.innerHTML = '<tr><td colspan="3">Memuat anggota...</td></tr>';
 
   const { data, error } = await supabaseClient
     .from("profiles")
@@ -504,30 +496,22 @@ async function loadAdminUsers() {
     .order("full_name", { ascending: true });
 
   if (error) {
-    list.innerHTML =
-      '<tr><td colspan="3">Gagal memuat anggota.</td></tr>';
-
+    list.innerHTML = '<tr><td colspan="3">Gagal memuat anggota.</td></tr>';
     alert("Gagal memuat anggota: " + error.message);
     return;
   }
 
   const users = data || [];
 
-  const admins = users.filter(
-    user => user.role === "admin"
-  ).length;
-
-  const members = users.filter(
-    user => user.role === "member"
-  ).length;
+  const admins = users.filter(user => user.role === "admin").length;
+  const members = users.filter(user => user.role === "member").length;
 
   document.getElementById("adminTotal").textContent = users.length;
   document.getElementById("adminCount").textContent = admins;
   document.getElementById("memberCount").textContent = members;
 
   if (users.length === 0) {
-    list.innerHTML =
-      '<tr><td colspan="3">Belum ada anggota.</td></tr>';
+    list.innerHTML = '<tr><td colspan="3">Belum ada anggota.</td></tr>';
     return;
   }
 
@@ -545,7 +529,6 @@ async function loadAdminUsers() {
 // ==================================
 
 async function logoutUser() {
-
   const { error } = await supabaseClient.auth.signOut();
 
   if (error) {
@@ -565,7 +548,6 @@ async function logoutUser() {
 // ==================================
 
 async function loadContacts() {
-
   if (!currentUser) return;
 
   const { data, error } = await supabaseClient
@@ -583,11 +565,10 @@ async function loadContacts() {
 }
 
 // ==================================
-// MENAMBAHKAN KONTAK
+// TAMBAH KONTAK
 // ==================================
 
 async function addContact() {
-
   if (!currentUser) {
     alert("Silakan login terlebih dahulu.");
     return;
@@ -616,7 +597,7 @@ async function addContact() {
     .from("contacts")
     .insert({
       user_id: currentUser.id,
-      name: name,
+      name,
       whatsapp: number,
       consent: true
     });
@@ -631,8 +612,76 @@ async function addContact() {
   document.getElementById("consent").checked = false;
 
   await loadContacts();
-
   alert("Kontak berhasil disimpan.");
+}
+
+// ==================================
+// EDIT KONTAK
+// ==================================
+
+async function editContact(id) {
+  const contact = contacts.find(c => String(c.id) === String(id));
+
+  if (!contact) {
+    alert("Kontak tidak ditemukan.");
+    return;
+  }
+
+  const name = prompt("Masukkan nama baru:", contact.name);
+  if (name === null) return;
+
+  const number = prompt("Masukkan nomor baru:", contact.whatsapp);
+  if (number === null) return;
+
+  if (!name.trim() || !/^62[0-9]{8,13}$/.test(number.trim())) {
+    alert("Nama atau format nomor tidak valid.");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("contacts")
+    .update({
+      name: name.trim(),
+      whatsapp: number.trim()
+    })
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Gagal mengedit kontak: " + error.message);
+    return;
+  }
+
+  await loadContacts();
+  alert("Kontak berhasil diperbarui.");
+}
+
+// ==================================
+// HAPUS KONTAK
+// ==================================
+
+async function deleteContact(id) {
+  const contact = contacts.find(c => String(c.id) === String(id));
+
+  if (!contact) return;
+
+  if (!confirm("Yakin ingin menghapus kontak " + contact.name + "?")) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("contacts")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", currentUser.id);
+
+  if (error) {
+    alert("Gagal menghapus kontak: " + error.message);
+    return;
+  }
+
+  await loadContacts();
+  alert("Kontak berhasil dihapus.");
 }
 
 // ==================================
@@ -640,14 +689,12 @@ async function addContact() {
 // ==================================
 
 function renderContacts() {
-
   document.getElementById("total").textContent = contacts.length;
 
   const list = document.getElementById("contactList");
 
   if (contacts.length === 0) {
-    list.innerHTML =
-      '<tr><td colspan="3">Belum ada kontak.</td></tr>';
+    list.innerHTML = '<tr><td colspan="4">Belum ada kontak.</td></tr>';
     return;
   }
 
@@ -656,84 +703,100 @@ function renderContacts() {
       <td>${escapeText(contact.name)}</td>
       <td>${escapeText(contact.whatsapp)}</td>
       <td class="tag">✓ Diizinkan</td>
+      <td>
+        <button data-edit-id="${escapeText(contact.id)}">Edit</button>
+        <button class="danger" data-delete-id="${escapeText(contact.id)}">Hapus</button>
+      </td>
     </tr>
   `).join("");
-}
 
-// ==================================
-// KEAMANAN TAMPILAN TEKS
-// ==================================
+  list.querySelectorAll("[data-edit-id]").forEach(button => {
+    button.addEventListener("click", () => {
+      editContact(button.dataset.editId);
+    });
+  });
 
-function escapeText(value) {
-
-  return String(value).replace(/[&<>"']/g, function(c) {
-
-    return {
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[c];
-
+  list.querySelectorAll("[data-delete-id]").forEach(button => {
+    button.addEventListener("click", () => {
+      deleteContact(button.dataset.deleteId);
+    });
   });
 }
 
 // ==================================
-// NAVIGASI HALAMAN
+// MEMBACA BARIS CSV
 // ==================================
 
-function showPage(id, element) {
+function parseCSVLine(line) {
+  const result = [];
+  let value = "";
+  let quoted = false;
 
-  if (id === "admin" && currentRole !== "admin") {
-    alert("Akses hanya untuk Super Admin.");
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"' && quoted && line[i + 1] === '"') {
+      value += '"';
+      i++;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      result.push(value.trim());
+      value = "";
+    } else {
+      value += char;
+    }
+  }
+
+  result.push(value.trim());
+  return result;
+}
+
+// ==================================
+// TEMPLATE CSV
+// ==================================
+
+function downloadCSVTemplate() {
+  const content =
+    "name,whatsapp,consent\nBudi,628123456789,true\n";
+
+  const blob = new Blob([content], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "template-kontak.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// ==================================
+// IMPOR CSV
+// ==================================
+
+async function importCSV() {
+  const file = document.getElementById("csvFile").files[0];
+
+  if (!file) {
+    alert("Pilih file CSV terlebih dahulu.");
     return;
   }
 
-  if (id === "admin") {
-    loadAdminUsers();
-  }
-
-  document.querySelectorAll("#mainApp section").forEach(section => {
-    section.classList.add("hidden");
-  });
-
-  document.getElementById(id).classList.remove("hidden");
-
-  document.querySelectorAll(".nav a").forEach(link => {
-    link.classList.remove("active");
-  });
-
-  element.classList.add("active");
-
-  document.getElementById("pageTitle").textContent =
-    element.textContent.trim();
-}
-
-// ==================================
-// PRATINJAU PESAN
-// ==================================
-
-function previewMessage() {
-
-  const message = document.getElementById("message").value.trim();
-
-  if (!message) {
-    alert("Tulis pesan terlebih dahulu.");
+  if (!currentUser) {
+    alert("Silakan login terlebih dahulu.");
     return;
   }
 
-  document.getElementById("preview").textContent =
-    "Pratinjau: " + message.replaceAll("{nama}", "Budi");
-}
+  const content = await file.text();
 
-// ==================================
-// MULAI APLIKASI
-// ==================================
+  const lines = content
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .filter(line => line.trim() !== "");
 
-checkSession();
-
-</script>
-
-</body>
-</html>
+  if (lines.length < 2) {
+    alert("File CSV 
