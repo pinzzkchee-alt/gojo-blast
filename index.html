@@ -1386,8 +1386,9 @@ async function loadWithdrawals(){
    PANEL ADMIN
 ================================= */
 
+
 async function loadAdminPanel(){
-  if(!currentUser)return;
+  if(!currentUser) return;
 
   try{
     const {data:profile,error:profileError}=await supabaseClient
@@ -1396,30 +1397,37 @@ async function loadAdminPanel(){
       .eq("id",currentUser.id)
       .maybeSingle();
 
-    if(profileError)throw profileError;
+    if(profileError) throw profileError;
 
-    if(profile?.role!=="admin")return;
+    if(profile?.role !== "admin"){
+      msg("adminWithdrawStatus","Akses admin tidak diizinkan.");
+      return;
+    }
 
     const {data:members,error:memberError}=await supabaseClient
       .from("profiles")
       .select("id,full_name,role")
       .order("full_name");
 
-    if(memberError)throw memberError;
+    if(memberError) throw memberError;
 
-    if($("adminMemberCount")){
-      $("adminMemberCount").textContent=String((members||[]).length);
-    }
+    const rows=members||[];
+    const admins=rows.filter(m=>m.role==="admin").length;
+    const memberCount=rows.length-admins;
 
-    if($("adminMembers")){
-      $("adminMembers").innerHTML=(members||[]).map(m=>`
+    $("adminTotal").textContent=rows.length;
+    $("adminCount").textContent=admins;
+    $("memberCount").textContent=memberCount;
+
+    $("adminUserList").innerHTML=rows.length
+      ?rows.map(m=>`
         <tr>
           <td>${esc(m.full_name||"Tanpa nama")}</td>
           <td>${esc(m.id)}</td>
-          <td>${esc(m.role||"user")}</td>
+          <td>${esc(m.role||"member")}</td>
         </tr>
-      `).join("");
-    }
+      `).join("")
+      :'<tr><td colspan="3">Belum ada anggota.</td></tr>';
 
     const {data:requests,error:requestError}=await supabaseClient
       .from("withdrawal_requests")
@@ -1427,51 +1435,49 @@ async function loadAdminPanel(){
       .order("created_at",{ascending:false})
       .limit(100);
 
-    if(requestError)throw requestError;
+    if(requestError) throw requestError;
 
-    const pending=(requests||[]).filter(
-      r=>r.status==="pending"
-    );
+    const withdrawals=requests||[];
+    const pending=withdrawals.filter(w=>w.status==="pending");
 
-    if($("adminPendingCount")){
-      $("adminPendingCount").textContent=String(pending.length);
-    }
+    $("pendingWithdrawCount").textContent=pending.length;
 
-    if($("adminWithdrawals")){
-      $("adminWithdrawals").innerHTML=(requests||[]).length
-        ?requests.map(w=>`
-          <tr>
-            <td>${esc(w.user_id)}</td>
-            <td>Rp ${Number(w.amount).toLocaleString("id-ID")}</td>
-            <td>${esc(w.payment_method)}</td>
-            <td>${esc(w.destination)}</td>
-            <td>${esc(w.status)}</td>
-            <td>
-              ${w.status==="pending"?`
-                <button data-approve="${esc(w.id)}">Setujui</button>
-                <button class="danger" data-reject="${esc(w.id)}">Tolak</button>
-              `:"-"}
-            </td>
-          </tr>
-        `).join("")
-        :'<tr><td colspan="6">Belum ada permintaan.</td></tr>';
+    $("adminWithdrawList").innerHTML=withdrawals.length
+      ?withdrawals.map(w=>`
+        <tr>
+          <td>${esc(w.user_id)}</td>
+          <td>Rp ${Number(w.amount||0).toLocaleString("id-ID")}</td>
+          <td>${esc(w.payment_method)}</td>
+          <td>${esc(w.destination)}</td>
+          <td>${esc(w.status)}</td>
+          <td>
+            ${w.status==="pending"?`
+              <button data-approve="${esc(w.id)}">Setujui</button>
+              <button class="danger" data-reject="${esc(w.id)}">Tolak</button>
+            `:"-"}
+          </td>
+        </tr>
+      `).join("")
+      :'<tr><td colspan="6">Belum ada pengajuan.</td></tr>';
 
-      $("adminWithdrawals").querySelectorAll("[data-approve]")
-        .forEach(b=>b.addEventListener("click",()=>{
-          reviewWithdrawal(b.dataset.approve,true);
-        }));
+    $("adminWithdrawList").querySelectorAll("[data-approve]")
+      .forEach(b=>b.addEventListener("click",()=>{
+        reviewWithdrawal(b.dataset.approve,true);
+      }));
 
-      $("adminWithdrawals").querySelectorAll("[data-reject]")
-        .forEach(b=>b.addEventListener("click",()=>{
-          reviewWithdrawal(b.dataset.reject,false);
-        }));
-    }
+    $("adminWithdrawList").querySelectorAll("[data-reject]")
+      .forEach(b=>b.addEventListener("click",()=>{
+        reviewWithdrawal(b.dataset.reject,false);
+      }));
+
+    msg("adminWithdrawStatus","Data berhasil dimuat.");
 
   }catch(e){
     console.error("Admin:",e);
-    alert("Panel admin gagal dimuat: "+e.message);
+    msg("adminWithdrawStatus","Gagal memuat data: "+e.message);
   }
 }
+
 
 
 /* =================================
