@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -35,7 +34,7 @@ button:hover{background:#7040d5}
 .secondary{background:#292943}
 .danger{background:#991b1b}
 table{width:100%;border-collapse:collapse;min-width:350px}
-td,th{text-align:left;padding:13px;border-bottom:1px solid #292943;font-size:13px}
+td,th{text-align:left;padding:13px;border-bottom:1px solid #292943;font-size:13px;overflow-wrap:anywhere}
 th{color:#aaaac2}
 .tag{color:#86efac}
 .hidden{display:none!important}
@@ -45,6 +44,7 @@ footer{text-align:center;color:#77778e;padding:25px;font-size:12px}
 #authBox p{color:#aaaac2;line-height:1.6}
 #authStatus{margin-top:15px;color:#c4b5fd;font-size:13px}
 .note{color:#aaaac2;font-size:12px;line-height:1.7;margin-top:15px}
+.admin-label{color:#c4b5fd;font-weight:bold}
 @media(max-width:900px){
 .sidebar{width:100%;height:auto;position:relative;padding:15px}
 .logo{margin-bottom:12px}
@@ -78,22 +78,27 @@ main{margin:0;padding:17px}
 <button onclick="loginUser()">Login</button>
 
 <p id="authStatus"></p>
-<p class="note">Gunakan email milikmu sendiri. Jika verifikasi email aktif, periksa kotak masuk untuk mengonfirmasi pendaftaran.</p>
+<p class="note">
+Gunakan email milikmu sendiri. Jika verifikasi email aktif,
+periksa kotak masuk untuk mengonfirmasi pendaftaran.
+</p>
 </div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar hidden" id="sidebar">
 <div class="logo">⚡ GOJO <span>BLAST</span></div>
+
 <nav class="nav">
 <a class="active" onclick="showPage('dashboard',this)">⌂ Dashboard</a>
 <a onclick="showPage('contacts',this)">♙ Kontak</a>
 <a onclick="showPage('blast',this)">✉ WhatsApp Blast</a>
 <a onclick="showPage('history',this)">◷ Riwayat</a>
 <a onclick="showPage('settings',this)">⚙ Pengaturan</a>
+<a id="adminNav" class="hidden" onclick="showPage('admin',this)">👑 Super Admin</a>
 </nav>
 </aside>
 
-<!-- DASHBOARD -->
+<!-- APLIKASI -->
 <main id="mainApp" class="hidden">
 
 <header>
@@ -101,7 +106,9 @@ main{margin:0;padding:17px}
 <div class="profile" id="profileEmail">Gojo Member</div>
 </header>
 
+<!-- DASHBOARD MEMBER -->
 <section id="dashboard">
+
 <div class="welcome">
 <h2>Welcome to Gojo Blast ⚡</h2>
 <p>Kelola kontak dan aktivitas pesan dari satu dashboard.</p>
@@ -112,14 +119,17 @@ main{margin:0;padding:17px}
 <small>Total Kontak</small>
 <h2 id="total">0</h2>
 </div>
+
 <div class="card">
 <small>Pesan Terkirim</small>
 <h2>0</h2>
 </div>
+
 <div class="card">
 <small>Pesan Gagal</small>
 <h2>0</h2>
 </div>
+
 <div class="card">
 <small>Status Sistem</small>
 <h2 style="font-size:18px">Aktif</h2>
@@ -129,13 +139,16 @@ main{margin:0;padding:17px}
 <div class="panel">
 <h3>Aktivitas Gojo Blast</h3>
 <p style="color:#aaaac2;line-height:1.8">
-Selamat datang di Gojo Blast. Tambahkan kontak yang sudah memberikan izin untuk menerima pesan.
+Selamat datang di Gojo Blast. Tambahkan kontak yang sudah
+memberikan izin untuk menerima pesan.
 </p>
 </div>
+
 </section>
 
 <!-- KONTAK -->
 <section id="contacts" class="hidden">
+
 <div class="panel">
 <h3>Tambah Kontak</h3>
 
@@ -147,7 +160,7 @@ Selamat datang di Gojo Blast. Tambahkan kontak yang sudah memberikan izin untuk 
 
 <label style="font-size:13px">
 <input type="checkbox" id="consent" style="width:auto">
- Penerima sudah memberikan izin menerima pesan.
+Penerima sudah memberikan izin menerima pesan.
 </label>
 
 <br>
@@ -156,6 +169,7 @@ Selamat datang di Gojo Blast. Tambahkan kontak yang sudah memberikan izin untuk 
 
 <div class="panel">
 <h3>Daftar Kontak</h3>
+
 <table>
 <thead>
 <tr>
@@ -164,17 +178,21 @@ Selamat datang di Gojo Blast. Tambahkan kontak yang sudah memberikan izin untuk 
 <th>Izin</th>
 </tr>
 </thead>
+
 <tbody id="contactList">
 <tr><td colspan="3">Belum ada kontak.</td></tr>
 </tbody>
 </table>
 </div>
+
 </section>
 
-<!-- BLAST -->
+<!-- WHATSAPP BLAST -->
 <section id="blast" class="hidden">
+
 <div class="panel">
 <h3>Buat Pesan</h3>
+
 <p style="color:#aaaac2;margin-bottom:15px">
 Gunakan {nama} untuk menyebut nama penerima.
 </p>
@@ -187,23 +205,31 @@ Gunakan {nama} untuk menyebut nama penerima.
 <p id="preview" style="color:#c4b5fd;margin-top:15px"></p>
 
 <p class="note">
-Mode pratinjau: belum mengirim pesan WhatsApp. Pengiriman sungguhan memerlukan integrasi resmi WhatsApp Business Platform.
+Mode pratinjau: belum mengirim pesan WhatsApp.
+Pengiriman sungguhan memerlukan integrasi resmi
+WhatsApp Business Platform.
 </p>
 </div>
+
 </section>
 
 <!-- RIWAYAT -->
 <section id="history" class="hidden">
+
 <div class="panel">
 <h3>Riwayat Aktivitas</h3>
+
 <p style="color:#aaaac2;line-height:1.7">
-Belum ada riwayat pengiriman. Aktivitas pengiriman akan tersedia setelah integrasi resmi ditambahkan.
+Belum ada riwayat pengiriman. Aktivitas pengiriman akan
+tersedia setelah integrasi resmi ditambahkan.
 </p>
 </div>
+
 </section>
 
 <!-- PENGATURAN -->
 <section id="settings" class="hidden">
+
 <div class="panel">
 <h3>Pengaturan Akun</h3>
 
@@ -214,23 +240,81 @@ Belum ada riwayat pengiriman. Aktivitas pengiriman akan tersedia setelah integra
 <input value="Gojo Blast" readonly>
 
 <label>Versi</label>
-<input value="1.0" readonly>
+<input value="2.0" readonly>
 
 <button class="danger" onclick="logoutUser()">Logout</button>
 </div>
+
+</section>
+
+<!-- SUPER ADMIN -->
+<section id="admin" class="hidden">
+
+<div class="welcome">
+<h2>👑 Super Admin</h2>
+<p>Panel pengelolaan akun dan anggota Gojo Blast.</p>
+</div>
+
+<div class="stats">
+
+<div class="card">
+<small>Total Akun</small>
+<h2 id="adminTotal">0</h2>
+</div>
+
+<div class="card">
+<small>Total Admin</small>
+<h2 id="adminCount">0</h2>
+</div>
+
+<div class="card">
+<small>Total Member</small>
+<h2 id="memberCount">0</h2>
+</div>
+
+<div class="card">
+<small>Status Akun</small>
+<h2 style="font-size:18px">Admin</h2>
+</div>
+
+</div>
+
+<div class="panel">
+<h3>Daftar Anggota</h3>
+
+<table>
+<thead>
+<tr>
+<th>Nama</th>
+<th>ID Akun</th>
+<th>Role</th>
+</tr>
+</thead>
+
+<tbody id="adminUserList">
+<tr><td colspan="3">Memuat anggota...</td></tr>
+</tbody>
+</table>
+
+<p class="note">
+Data anggota ditampilkan dari tabel profiles.
+Pengaturan role dilakukan melalui proses admin yang aman di Supabase.
+</p>
+</div>
+
 </section>
 
 <footer>GOJO BLAST © 2026 — Modern Messaging Dashboard</footer>
+
 </main>
 
 <script>
+
 // ==================================
 // KONFIGURASI SUPABASE
 // ==================================
 
 const SUPABASE_URL = "https://mgqmhppcijzkgatttfqb.supabase.co";
-
-// GANTI TEKS DI BAWAH DENGAN PUBLISHABLE KEY SUPABASE KAMU
 const SUPABASE_KEY = "sb_publishable_B61MzyImsKoBVoErFclTxw_WQPlI9xB";
 
 const supabaseClient = window.supabase.createClient(
@@ -240,6 +324,7 @@ const supabaseClient = window.supabase.createClient(
 
 let currentUser = null;
 let contacts = [];
+let currentRole = "member";
 
 // ==================================
 // PESAN STATUS
@@ -254,6 +339,7 @@ function authMessage(message) {
 // ==================================
 
 async function registerUser() {
+
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
 
@@ -287,6 +373,7 @@ async function registerUser() {
 // ==================================
 
 async function loginUser() {
+
   const email = document.getElementById("authEmail").value.trim();
   const password = document.getElementById("authPassword").value;
 
@@ -316,6 +403,7 @@ async function loginUser() {
 // ==================================
 
 async function checkSession() {
+
   const { data, error } = await supabaseClient.auth.getSession();
 
   if (error) {
@@ -342,6 +430,7 @@ function showLogin() {
 // ==================================
 
 async function openDashboard() {
+
   if (!currentUser) return;
 
   document.getElementById("authBox").classList.add("hidden");
@@ -354,7 +443,101 @@ async function openDashboard() {
   document.getElementById("settingsEmail").value =
     currentUser.email || "";
 
+  await loadUserRole();
   await loadContacts();
+}
+
+// ==================================
+// ROLE DAN SUPER ADMIN
+// ==================================
+
+async function loadUserRole() {
+
+  if (!currentUser) return;
+
+  const adminNav = document.getElementById("adminNav");
+
+  adminNav.classList.add("hidden");
+  currentRole = "member";
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("full_name, role")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Gagal memuat role:", error.message);
+    return;
+  }
+
+  if (!data) {
+    console.warn("Profil pengguna belum ditemukan.");
+    return;
+  }
+
+  currentRole = data.role || "member";
+
+  if (currentRole === "admin") {
+    adminNav.classList.remove("hidden");
+    document.getElementById("profileEmail").textContent =
+      "👑 " + (currentUser.email || "Super Admin");
+  }
+}
+
+// ==================================
+// DATA ANGGOTA SUPER ADMIN
+// ==================================
+
+async function loadAdminUsers() {
+
+  if (currentRole !== "admin") return;
+
+  const list = document.getElementById("adminUserList");
+
+  list.innerHTML =
+    '<tr><td colspan="3">Memuat anggota...</td></tr>';
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id, full_name, role")
+    .order("full_name", { ascending: true });
+
+  if (error) {
+    list.innerHTML =
+      '<tr><td colspan="3">Gagal memuat anggota.</td></tr>';
+
+    alert("Gagal memuat anggota: " + error.message);
+    return;
+  }
+
+  const users = data || [];
+
+  const admins = users.filter(
+    user => user.role === "admin"
+  ).length;
+
+  const members = users.filter(
+    user => user.role === "member"
+  ).length;
+
+  document.getElementById("adminTotal").textContent = users.length;
+  document.getElementById("adminCount").textContent = admins;
+  document.getElementById("memberCount").textContent = members;
+
+  if (users.length === 0) {
+    list.innerHTML =
+      '<tr><td colspan="3">Belum ada anggota.</td></tr>';
+    return;
+  }
+
+  list.innerHTML = users.map(user => `
+    <tr>
+      <td>${escapeText(user.full_name || "Tanpa nama")}</td>
+      <td>${escapeText(user.id)}</td>
+      <td class="admin-label">${escapeText(user.role || "member")}</td>
+    </tr>
+  `).join("");
 }
 
 // ==================================
@@ -362,6 +545,7 @@ async function openDashboard() {
 // ==================================
 
 async function logoutUser() {
+
   const { error } = await supabaseClient.auth.signOut();
 
   if (error) {
@@ -370,15 +554,18 @@ async function logoutUser() {
   }
 
   currentUser = null;
+  currentRole = "member";
   contacts = [];
+
   showLogin();
 }
 
 // ==================================
-// MEMUAT KONTAK DARI DATABASE
+// MEMUAT KONTAK
 // ==================================
 
 async function loadContacts() {
+
   if (!currentUser) return;
 
   const { data, error } = await supabaseClient
@@ -400,6 +587,7 @@ async function loadContacts() {
 // ==================================
 
 async function addContact() {
+
   if (!currentUser) {
     alert("Silakan login terlebih dahulu.");
     return;
@@ -443,6 +631,7 @@ async function addContact() {
   document.getElementById("consent").checked = false;
 
   await loadContacts();
+
   alert("Kontak berhasil disimpan.");
 }
 
@@ -451,6 +640,7 @@ async function addContact() {
 // ==================================
 
 function renderContacts() {
+
   document.getElementById("total").textContent = contacts.length;
 
   const list = document.getElementById("contactList");
@@ -475,7 +665,9 @@ function renderContacts() {
 // ==================================
 
 function escapeText(value) {
+
   return String(value).replace(/[&<>"']/g, function(c) {
+
     return {
       "&": "&amp;",
       "<": "&lt;",
@@ -483,6 +675,7 @@ function escapeText(value) {
       '"': "&quot;",
       "'": "&#39;"
     }[c];
+
   });
 }
 
@@ -491,6 +684,16 @@ function escapeText(value) {
 // ==================================
 
 function showPage(id, element) {
+
+  if (id === "admin" && currentRole !== "admin") {
+    alert("Akses hanya untuk Super Admin.");
+    return;
+  }
+
+  if (id === "admin") {
+    loadAdminUsers();
+  }
+
   document.querySelectorAll("#mainApp section").forEach(section => {
     section.classList.add("hidden");
   });
@@ -512,6 +715,7 @@ function showPage(id, element) {
 // ==================================
 
 function previewMessage() {
+
   const message = document.getElementById("message").value.trim();
 
   if (!message) {
@@ -528,6 +732,7 @@ function previewMessage() {
 // ==================================
 
 checkSession();
+
 </script>
 
 </body>
